@@ -1,5 +1,7 @@
 # <img src="images/logo.png" width="30" height="30" alt="" /> [Bloch sphere simulator](https://bits-and-electrons.github.io/bloch-sphere-simulator/)
 
+[![Build Status](https://dev.azure.com/bits-and-electrons/bloch-sphere-simulator/_apis/build/status/bits-and-electrons.bloch-sphere-simulator.build?branchName=main)](https://dev.azure.com/bits-and-electrons/bloch-sphere-simulator/_build/latest?definitionId=6&branchName=main)
+
 A simple web based Bloch sphere simulator, intended to help people to understand and visualize transition of single qubit state on applying different Quantum logic gates.
 
 There is no installation required, just go to https://bits-and-electrons.github.io/bloch-sphere-simulator/.
