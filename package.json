@@ -1,0 +1,26 @@
+{
+  "name": "bloch-sphere",
+  "description": "A simple web based Bloch sphere simulator",
+  "version": "1.0.0",
+  "license": "MIT",
+  "keywords": [
+    "qubit",
+    "bloch-sphere",
+    "quantum-comuting",
+    "quantum-mechanics"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bits-and-electrons/bloch-sphere-simulator"
+  },
+  "bugs": {
+    "url": "https://github.com/bits-and-electrons/bloch-sphere-simulator/issues"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.12.13",
+    "jest": "^26.6.3"
+  }
+}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<!-- Encoding -->
+	<meta charset="utf-8">
+
+	<!-- Meta tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords"
+		content="quantum, quantum-mechanics, quantum-computing, qubit, bloch-sphere, bloch-sphere-simulator">
+	<meta name="description" content="bloch sphere simulator">
+
+	<!-- Title -->
+	<title>Bloch sphere simulator</title>
+
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="images/favicon/site.webmanifest">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="./css/libs/bootstrap.min.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="css/main.css">
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-41D176C1S6"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-41D176C1S6');
+	</script>
+</head>
+
+<body>
+	<nav class="navbar fixed-top navbar-light bg-light">
+		<a class="navbar-brand" href="https://bits-and-electrons.github.io/bloch-sphere-simulator/">
+			<img src="images/logo.png" width="30" height="30" alt="">
+			Bloch sphere simulator
+		</a>
+		<ul class="navbar-nav ml-left">
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/bits-and-electrons/bloch-sphere-simulator">Version
+					1.0.0
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-8">
+				<div class="col-12" id="bloch-sphere">
+				</div>
+				<div class="col-12" id="state-vector">
+					<div class="row pt-3">
+						<div class="col">
+							<div class="row">
+								<span class="col-3 text-right">Theta:</span>
+								<span id="quantum-state-theta" class="col-9 text-left"></span>
+							</div>
+							<div class="row">
+								<span class="col-3 text-right">Phi:</span>
+								<span id="quantum-state-phi" class="col-9 text-left"></span>
+							</div>
+						</div>
+						<div class="col">
+							<div class="row">
+								<span class="col-3 text-right">Alpha:</span>
+								<span id="quantum-state-alpha" class="col-9 text-left"></span>
+							</div>
+							<div class="row">
+								<span class="col-3 text-right">Beta:</span>
+								<span id="quantum-state-beta" class="col-9 text-left"></span>
+							</div>
+						</div>
+						<div class="col">
+							<div class="row">
+								<span class="col-3 text-right">X:</span>
+								<span id="quantum-state-x" class="col-9 text-left"></span>
+							</div>
+							<div class="row">
+								<span class="col-3 text-right">Y:</span>
+								<span id="quantum-state-y" class="col-9 text-left"></span>
+							</div>
+							<div class="row">
+								<span class="col-3 text-right">Z:</span>
+								<span id="quantum-state-z" class="col-9 text-left"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="toolbox" class="col-4">
+				<div class="col-12 pt-3">
+					<div class="d-flex justify-content-center">
+						<h4>
+							<b>Toolbox</b>
+						</h4>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="col-12 pt-3">
+						<div class="d-flex justify-content-left">
+							<h5>
+								<b>Half-turn Gates</b>
+							</h5>
+						</div>
+					</div>
+					<div id="half-turn-gates-section-1" class="col-12">
+						<button type="button" id="px-builtin-gate"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="tooltip"
+							data-html="true" title="Axis: X, Rotation: 180">
+							<span>P<sub>x</sub></span>
+						</button><!--
+						--><button type="button" id="py-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: 180">
+							<span>P<sub>y</sub></span>
+						</button><!--
+						--><button type="button" id="pz-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: 180">
+							<span>P<sub>z</sub></span>
+						</button>
+					</div>
+					<div id="half-turn-gates-section-2" class="col-12">
+						<button type="button" id="h-builtin-gate"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="tooltip"
+							data-html="true" title="Axis: X+Z, Rotation: 180">
+							<span>H</span>
+						</button>
+					</div>
+					<div class="col-12 pt-3">
+						<div class="d-flex justify-content-left">
+							<h5>
+								<b>Quarter-turn Gates</b>
+							</h5>
+						</div>
+					</div>
+					<div id="quarter-turn-gates-section-1" class="col-12">
+						<button type="button" id="px-12-builtin-gate"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="tooltip"
+							data-html="true" title="Axis: X, Rotation: 90">
+							<span>P<sub>x</sub><sup>1/2</sup></span>
+						</button><!--
+						--><button type="button" id="py-12-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: 90">
+							<span>P<sub>y</sub><sup>1/2</sup></span>
+						</button><!--
+						--><button type="button" id="pz-12-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: 90">
+							<span>P<sub>z</sub><sup>1/2</sup></span>
+						</button>
+					</div>
+					<div id="quarter-turn-gates-section-2" class="col-12">
+						<button type="button" id="pxi-12-builtin-gate"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="tooltip"
+							data-html="true" title="Axis: X, Rotation: -90">
+							<span>P<sub>x</sub><sup>-1/2</sup></span>
+						</button><!--
+						--><button type="button" id="pyi-12-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: -90">
+							<span>P<sub>y</sub><sup>-1/2</sup></span>
+						</button><!--
+						--><button type="button" id="pzi-12-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: -90">
+							<span>P<sub>z</sub><sup>-1/2</sup></span>
+						</button>
+					</div>
+					<div id="quarter-turn-gates-section-3" class="col-12">
+						<button type="button" id="s-builtin-gate"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="tooltip"
+							data-html="true" title="Axis: Z, Rotation: 90">
+							<span>S</span>
+						</button><!--
+						--><button type="button" id="si-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: -90">
+							<span>S<sup>-1</sup></span>
+						</button>
+					</div>
+					<div class="col-12 pt-3">
+						<div class="d-flex justify-content-left">
+							<h5>
+								<b>Eighth-turn Gates</b>
+							</h5>
+						</div>
+					</div>
+					<div id="eighth-turn-gates-section-1" class="col-12">
+						<button type="button" id="px-14-builtin-gate"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="tooltip"
+							data-html="true" title="Axis: X, Rotation: 45">
+							<span>P<sub>x</sub><sup>1/4</sup></span>
+						</button><!--
+						--><button type="button" id="py-14-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: 45">
+							<span>P<sub>y</sub><sup>1/4</sup></span>
+						</button><!--
+						--><button type="button" id="pz-14-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: 45">
+							<span>P<sub>z</sub><sup>1/4</sup></span>
+						</button>
+					</div>
+					<div id="eighth-turn-gates-section-2" class="col-12">
+						<button type="button" id="pxi-14-builtin-gate"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="tooltip"
+							data-html="true" title="Axis: X, Rotation: -45">
+							<span>P<sub>x</sub><sup>-1/4</sup></span>
+						</button><!--
+						--><button type="button" id="pyi-14-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: -45">
+							<span>P<sub>y</sub><sup>-1/4</sup></span>
+						</button><!--
+						--><button type="button" id="pzi-14-builtin-gate" class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: -45">
+							<span>P<sub>z</sub><sup>-1/4</sup></span>
+						</button>
+					</div>
+					<div class="col-12 pt-3">
+						<div class="d-flex justify-content-left">
+							<h5>
+								<b>Custom Gates</b>
+							</h5>
+						</div>
+					</div>
+					<div id="custom-gates-section" class="col-12">
+						<button type="button" id="custom-gate-add"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="modal"
+							data-target="#custom-modal">
+							<span>+</span>
+						</button>
+						<div id="custom-modal" class="modal fade" tabindex="-1" role="dialog"
+							aria-labelledby="custom-modal-title" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content rounded-0">
+									<div class="modal-header">
+										<h5 id="custom-modal-long-title" class="modal-title">Custom Gate</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div class="container-fluid">
+											<form id="custom-gates-form" class="needs-validation" novalidate>
+												<div class="form-group row align-items-center">
+													<label for="custom-x" class="col-4 col-form-label">X:</label>
+													<input type="number" step="1" id="custom-gate-x"
+														class="col-8 form-control" placeholder="1" required />
+													<div class="invalid-feedback offset-4">
+														Please provide valid X coff.
+													</div>
+												</div>
+												<div class="form-group row align-items-center">
+													<label for="custom-y" class="col-4 col-form-label">Y:</label>
+													<input type="number" step="1" id="custom-gate-y"
+														class="col-8 form-control" placeholder="0" required />
+													<div class="invalid-feedback offset-4">
+														Please provide valid Y coff.
+													</div>
+												</div>
+												<div class="form-group row align-items-center">
+													<label for="custom-z" class="col-4 col-form-label">Z:</label>
+													<input type="number" step="1" id="custom-gate-z"
+														class="col-8 form-control" placeholder="1" required />
+													<div class="invalid-feedback offset-4">
+														Please provide valid Z coff.
+													</div>
+												</div>
+												<div class="form-group row align-items-center">
+													<label for="custom-rotation"
+														class="col-4 col-form-label">Rotation:</label>
+													<input type="number" min="-360" max="360" step="1"
+														id="custom-gate-rotation" class="col-8 form-control"
+														placeholder="180" required />
+													<div class="invalid-feedback offset-4">
+														Please provide valid rotation.
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary btn-sharp"
+											data-dismiss="modal">Close</button>
+										<button type="submit" id="custom-gate-create"
+											class="btn btn-primary btn-sharp">Create</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 pt-3">
+						<div class="d-flex justify-content-left">
+							<h5>
+								<b>Lambda Gates</b>
+							</h5>
+						</div>
+					</div>
+					<div id="polar-lambda-gate-section" class="col-12 pt-2">
+						<form>
+							<div class="form-group">
+								<label for="polar-angle">
+									Polar angle:
+									<span id="polar-angle-content">0<span>&#176;</span></span>
+								</label>
+								<input type="range" id="polar-angle" class="custom-range" min="0" max="360" step="1"
+									value="0">
+								<button type="button" id="polar-lambda-gate"
+									class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1">Apply</button>
+							</div>
+						</form>
+					</div>
+					<div id="azimuth-lambda-gate-section" class="col-12 pt-2">
+						<form>
+							<div class="form-group">
+								<label for="azimuth-angle">
+									Azimuth angle:
+									<span id="azimuth-angle-content">0<span>&#176;</span></span>
+								</label>
+								<input type="range" id="azimuth-angle" class="custom-range" min="0" max="360" step="1"
+									value="0">
+								<button type="button" id="azimuth-lambda-gate"
+									class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1">Apply</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- JQuery -->
+	<script type="module" src="./src/libs/jquery/jquery-3.3.1.slim.min.js"></script>
+
+	<!-- Bootstrap Bundle -->
+	<script type="module" src="src/libs/bootstrap/bootstrap.bundle.min.js"></script>
+
+	<!-- Three.JS -->
+	<script type="module" src="src/libs/three/three.min.js"></script>
+
+	<!-- Start BlochSphere Rendering -->
+	<script type="module" src="src/init.js"></script>
+</body>
+
+</html>
