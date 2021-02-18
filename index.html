@@ -52,7 +52,7 @@
 			<div class="collapse navbar-collapse" id="navbar-nav">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="https://github.com/bits-and-electrons/bloch-sphere-simulator" target="_blank">Version
+						<a class="btn btn-light" href="https://github.com/bits-and-electrons/bloch-sphere-simulator" target="_blank">Version
 							1.0.0
 						</a>
 					</li>
@@ -66,40 +66,40 @@
 			<div class="col-8 h-100">
 				<div id="bloch-sphere" class="col-12">
 				</div>
-				<div id="state-vector" class="col-12">
+				<div id="bloch-sphere-state" class="col-12">
 					<div class="row pt-3">
 						<div class="col">
 							<div class="row">
 								<span class="col-3 text-right">Theta:</span>
-								<span id="quantum-state-theta" class="col-9 text-left"></span>
+								<span id="bloch-sphere-state-theta" class="col-9 text-left"></span>
 							</div>
 							<div class="row">
 								<span class="col-3 text-right">Phi:</span>
-								<span id="quantum-state-phi" class="col-9 text-left"></span>
+								<span id="bloch-sphere-state-phi" class="col-9 text-left"></span>
 							</div>
 						</div>
 						<div class="col">
 							<div class="row">
 								<span class="col-3 text-right">Alpha:</span>
-								<span id="quantum-state-alpha" class="col-9 text-left"></span>
+								<span id="bloch-sphere-state-alpha" class="col-9 text-left"></span>
 							</div>
 							<div class="row">
 								<span class="col-3 text-right">Beta:</span>
-								<span id="quantum-state-beta" class="col-9 text-left"></span>
+								<span id="bloch-sphere-state-beta" class="col-9 text-left"></span>
 							</div>
 						</div>
 						<div class="col">
 							<div class="row">
 								<span class="col-3 text-right">X:</span>
-								<span id="quantum-state-x" class="col-9 text-left"></span>
+								<span id="bloch-sphere-state-x" class="col-9 text-left"></span>
 							</div>
 							<div class="row">
 								<span class="col-3 text-right">Y:</span>
-								<span id="quantum-state-y" class="col-9 text-left"></span>
+								<span id="bloch-sphere-state-y" class="col-9 text-left"></span>
 							</div>
 							<div class="row">
 								<span class="col-3 text-right">Z:</span>
-								<span id="quantum-state-z" class="col-9 text-left"></span>
+								<span id="bloch-sphere-state-z" class="col-9 text-left"></span>
 							</div>
 						</div>
 					</div>
@@ -238,15 +238,15 @@
 					<div id="custom-gates-section" class="col-12">
 						<button type="button" id="custom-gate-add"
 							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="modal"
-							data-target="#custom-modal">
+							data-target="#custom-gate-modal">
 							<span>+</span>
 						</button>
-						<div id="custom-modal" class="modal fade" tabindex="-1" role="dialog"
-							aria-labelledby="custom-modal-title" aria-hidden="true">
+						<div id="custom-gate-modal" class="modal fade" tabindex="-1" role="dialog"
+							aria-labelledby="custom-gate-modal-title" aria-hidden="true">
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content rounded-0">
 									<div class="modal-header">
-										<h5 id="custom-modal-long-title" class="modal-title">Custom Gate</h5>
+										<h5 id="custom-gate-modal-long-title" class="modal-title">Custom Gate</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>

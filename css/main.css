@@ -14,9 +14,9 @@ body {
     height: 80%;
 }
 
-#state-vector {
+#bloch-sphere-state {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 1.2vw; /* Magic number to fit state-vector content on different screen sizes */
+    font-size: 1.2vw; /* Magic number to fit html content on different screen sizes */
     text-align: center;
     height: 20%;
 }
