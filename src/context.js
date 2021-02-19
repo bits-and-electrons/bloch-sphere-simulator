@@ -17,7 +17,8 @@ import {
 } from "./events.js";
 
 import {
-    ToolboxEventListeners
+    ToolboxEventListeners,
+    ExportWorkspaceEventsListeners
 } from "./event_listeners.js";
 
 
@@ -29,8 +30,8 @@ var GlobalContext = {
 
     blochSphere: null,
     blochSphereState: {
-        "theta": "0.0000",
-        "phi": "90.0000"
+        theta: "0.0000",
+        phi: "90.0000"
     },
 
     blochSphereOperation: {
@@ -187,6 +188,7 @@ var GlobalContext = {
 
     startAllEventListeners: function () {
         ToolboxEventListeners.startAllEventListeners();
+        ExportWorkspaceEventsListeners.startAllEventListeners();
     },
 
     startBlochSphereOperation: function (gate) {

@@ -106,6 +106,19 @@ var ToolboxEventListeners = {
     }
 };
 
+var ExportWorkspaceEventsListeners = {
+    exportWorkspaceEventsListeners: function () {
+        $("#export-workspace").click(function () {
+            ExportWorkspaceEvents.copyWorkspaceToClipboard();
+        });
+    },
+
+    startAllEventListeners: function () {
+        ExportWorkspaceEventsListeners.exportWorkspaceEventsListeners();
+    }
+}
+
 export {
-    ToolboxEventListeners
+    ToolboxEventListeners,
+    ExportWorkspaceEventsListeners
 };

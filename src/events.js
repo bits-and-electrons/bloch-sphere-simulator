@@ -75,21 +75,28 @@ var ExportWorkspaceEvents = {
             "lambdaGates": GlobalContext.lambdaGates
         };
 
-        window.location.hash = JSON.stringify(workspaceProperties);
+        // Stringfy Workspace Properies
+        let workspacePropertiesJson = JSON.stringify(workspaceProperties);
 
-        // Update HREF in Export Workspace InputField
-        $("#export-workspace-input").val(window.location.href);
+        // Update URL Hash
+        window.location.hash = workspacePropertiesJson;
+
+        // Decode Location with Unsafe URL Characters
+        let location = decodeURIComponent(window.location);
+
+        // Update Export Workspace
+        $("#export-workspace-textarea").val(location);
     },
 
     loadWorkspace: function () {
-        // Decode unsafe URL characters
+        // Decode Hash with Unsafe URL Characters
         let hash = decodeURIComponent(window.location.hash);
 
         if (hash.length == 0) {
             return;
         }
 
-        // Remove char '#' from hash & Parse
+        // Remove '#' Hrom hash & Parse Workspace Properties
         let workspacePropertiesJson = hash.substring(1);
         let workspaceProperties = JSON.parse(workspacePropertiesJson);
 
@@ -105,13 +112,19 @@ var ExportWorkspaceEvents = {
             }
         }
 
-        // Load Polar Angle
+        // Load Lambda Gates
+        GlobalContext.lambdaGates = workspaceProperties.lambdaGates;
+
         $("#polar-angle").val(workspaceProperties.lambdaGates.polarAngle);
         $("#polar-angle-content").html(`${workspaceProperties.lambdaGates.polarAngle}<span>&#176;</span>`);
 
-        // Load Azimuth Angle
         $("#azimuth-angle").val(workspaceProperties.lambdaGates.azimuthAngle);
         $("#azimuth-angle-content").html(`${workspaceProperties.lambdaGates.azimuthAngle}<span>&#176;</span>`);
+    },
+
+    copyWorkspaceToClipboard: function () {
+        $("#export-workspace-textarea").select();
+        document.execCommand("copy");
     }
 };
 
