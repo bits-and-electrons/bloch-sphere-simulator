@@ -12,10 +12,11 @@ import {
 
 import {
     ToolboxEvents,
-    BlochSphereStateEvents
+    BlochSphereStateEvents,
+    ExportWorkspaceEvents
 } from "./events.js";
 
-import { 
+import {
     ToolboxEventListeners
 } from "./event_listeners.js";
 
@@ -27,74 +28,87 @@ var GlobalContext = {
     renderer: null, labelRenderer: null, controls: null,
 
     blochSphere: null,
+    blochSphereState: {
+        "theta": "0.0000",
+        "phi": "90.0000"
+    },
+
     blochSphereOperation: {
         inProgress: false,
-        axis: null,
+        transformationAxis: null,
         rotation: 0
     },
 
-    builtInQuantumGates: {
-        "px-builtin-gate": new QuantumGate(
+    builtInGates: {
+        "px-builtInGate": new QuantumGate(
             1, 0, 0, 180
         ),
-        "py-builtin-gate": new QuantumGate(
+        "py-builtInGate": new QuantumGate(
             0, 1, 0, 180
         ),
-        "pz-builtin-gate": new QuantumGate(
+        "pz-builtInGate": new QuantumGate(
             0, 0, 1, 180
         ),
-        "h-builtin-gate": new QuantumGate(
+        "h-builtInGate": new QuantumGate(
             1, 0, 1, 180
         ),
-        "px-12-builtin-gate": new QuantumGate(
+        "px-12-builtInGate": new QuantumGate(
             1, 0, 0, 90
         ),
-        "py-12-builtin-gate": new QuantumGate(
+        "py-12-builtInGate": new QuantumGate(
             0, 1, 0, 90
         ),
-        "pz-12-builtin-gate": new QuantumGate(
+        "pz-12-builtInGate": new QuantumGate(
             0, 0, 1, 90
         ),
-        "pxi-12-builtin-gate": new QuantumGate(
+        "pxi-12-builtInGate": new QuantumGate(
             1, 0, 0, -90
         ),
-        "pyi-12-builtin-gate": new QuantumGate(
+        "pyi-12-builtInGate": new QuantumGate(
             0, 1, 0, -90
         ),
-        "pzi-12-builtin-gate": new QuantumGate(
+        "pzi-12-builtInGate": new QuantumGate(
             0, 0, 1, -90
         ),
-        "s-builtin-gate": new QuantumGate(
+        "s-builtInGate": new QuantumGate(
             0, 0, 1, 90
         ),
-        "si-builtin-gate": new QuantumGate(
+        "si-builtInGate": new QuantumGate(
             0, 0, 1, -90
         ),
-        "px-14-builtin-gate": new QuantumGate(
+        "px-14-builtInGate": new QuantumGate(
             1, 0, 0, 45
         ),
-        "py-14-builtin-gate": new QuantumGate(
+        "py-14-builtInGate": new QuantumGate(
             0, 1, 0, 45
         ),
-        "pz-14-builtin-gate": new QuantumGate(
+        "pz-14-builtInGate": new QuantumGate(
             0, 0, 1, 45
         ),
-        "pxi-14-builtin-gate": new QuantumGate(
+        "pxi-14-builtInGate": new QuantumGate(
             1, 0, 0, -45
         ),
-        "pyi-14-builtin-gate": new QuantumGate(
+        "pyi-14-builtInGate": new QuantumGate(
             0, 1, 0, -45
         ),
-        "pzi-14-builtin-gate": new QuantumGate(
+        "pzi-14-builtInGate": new QuantumGate(
             0, 0, 1, -45
         )
     },
 
-    customQuantumGates: {
+    customGates: {
 
     },
 
+    lambdaGates: {
+        polarAngle: "0",
+        azimuthAngle: "0"
+    },
+
     init: function () {
+        // Load Workspace
+        ExportWorkspaceEvents.loadWorkspace();
+
         // Get Canves Details
         let canvas = document.getElementById("bloch-sphere");
         let canvasWidth = canvas.offsetWidth;
@@ -147,6 +161,9 @@ var GlobalContext = {
 
         // Update BlochSphere State
         BlochSphereStateEvents.updateBlochSphereState();
+
+        // Save Workspace
+        ExportWorkspaceEvents.saveWorkspace();
     },
 
     onload: function () {
@@ -177,7 +194,7 @@ var GlobalContext = {
 
         GlobalContext.blochSphereOperation.inProgress = true;
 
-        GlobalContext.blochSphereOperation.axis = gate.axis;
+        GlobalContext.blochSphereOperation.transformationAxis = gate.transformationAxis;
         GlobalContext.blochSphereOperation.rotation = gate.rotation
     },
 
@@ -188,17 +205,27 @@ var GlobalContext = {
             if (GlobalContext.blochSphereOperation.rotation == 0) {
                 GlobalContext.blochSphereOperation.inProgress = false;
                 ToolboxEvents.enableQuantumGates();
+
+                // Get Current QuantumState
+                let quantumState = GlobalContext.blochSphere.quantumState;
+
+                // Save Theta & Phi
+                GlobalContext.blochSphereState.theta = quantumState.theta.toFixed(4);
+                GlobalContext.blochSphereState.phi = quantumState.phi.toFixed(4);
+
+                // Save Workspace
+                ExportWorkspaceEvents.saveWorkspace();
             }
             else {
                 if (GlobalContext.blochSphereOperation.rotation > 0) {
                     // Apply Delta Quantum Operation
                     GlobalContext.blochSphereOperation.rotation -= 1;
-                    GlobalContext.blochSphere.updateQuantumState(GlobalContext.blochSphereOperation.axis.normalize(), THREE.Math.degToRad(1));
+                    GlobalContext.blochSphere.updateQuantumState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(1));
                 }
                 else {
                     // Apply Delta Quantum Operation
                     GlobalContext.blochSphereOperation.rotation += 1;
-                    GlobalContext.blochSphere.updateQuantumState(GlobalContext.blochSphereOperation.axis.normalize(), THREE.Math.degToRad(-1));
+                    GlobalContext.blochSphere.updateQuantumState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(-1));
                 }
 
                 // Update BlochSphere State
