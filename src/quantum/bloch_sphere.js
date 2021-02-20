@@ -55,12 +55,12 @@ class BlochSphere extends BaseGroup {
         // Add StatePointer to BaseGroup
         this.add(this.statePointer);
 
-        // // Set Default QuantumState to StatePointer
-        this.statePointer.rotate(CartesianAxes.YAxis, new THREE.Vector3(), THREE.Math.degToRad(properties.theta));
-        this.statePointer.rotate(CartesianAxes.ZAxis, new THREE.Vector3(), THREE.Math.degToRad(properties.theta));
-
         // Create QuantumState
         this.quantumState = new QuantumState(this.statePointer.theta(), this.statePointer.phi());
+
+        // Set QuantumState to StatePointer
+        this.updateQuantumState(CartesianAxes.YAxis, THREE.Math.degToRad(properties.theta));
+        this.updateQuantumState(CartesianAxes.ZAxis, THREE.Math.degToRad(properties.phi));
     }
 
     updateQuantumState(axis, angle) {
