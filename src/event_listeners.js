@@ -111,6 +111,20 @@ var ExportWorkspaceEventsListeners = {
         $("#export-workspace").click(function () {
             ExportWorkspaceEvents.copyWorkspaceToClipboard();
         });
+
+        $("#export-workspace-encode-url").change(function() {
+            if ($(this).is(':checked')) {
+                ExportWorkspaceEvents.updateWorkspaceURL(false);
+            }
+            else {
+                ExportWorkspaceEvents.updateWorkspaceURL(true);
+            }
+        });
+
+        $('#export-workspace-modal').on('hidden.bs.modal', function () {
+            // Reset Export Workspace Model
+            ExportWorkspaceEvents.resetExportWorkspaceModel();
+        });
     },
 
     startAllEventListeners: function () {
