@@ -149,6 +149,8 @@ var GlobalContext = {
 
         // Initialize BlochSphere
         GlobalContext.blochSphere = new BlochSphere(diameter / 2, {
+            theta: GlobalContext.blochSphereState.theta,
+            phi: GlobalContext.blochSphereState.phi,
             color: 0x808080,
             axesLength: (diameter / 2) + ((diameter / 2) * 0.2),
             axesWidth: 2

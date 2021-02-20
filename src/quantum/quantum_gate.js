@@ -9,13 +9,7 @@ class QuantumGate {
     }
 
     get transformationAxis() {
-        let transformAxis = new THREE.Vector3();
-
-        transformAxis.add(CartesianAxes.XAxis.multiplyScalar(this.axis.x));
-        transformAxis.add(CartesianAxes.YAxis.multiplyScalar(this.axis.y));
-        transformAxis.add(CartesianAxes.ZAxis.multiplyScalar(this.axis.z));
-
-        return transformAxis.normalize();
+        return CartesianAxes.Vector3(this.axis.x, this.axis.y, this.axis.z).normalize();
     }
 }
 
