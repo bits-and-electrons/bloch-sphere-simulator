@@ -6,6 +6,10 @@ import {
     Cylinder, Sphere
 } from "./basic_shapes.js";
 
+import {
+    Vector3Helpers
+} from "../mathutils.js";
+
 class Axis extends BaseGroup {
     constructor(height, width, properties) {
         if (!properties) properties = {};
@@ -120,11 +124,11 @@ class StatePointer extends BaseGroup {
     }
 
     theta() {
-        return THREE.Math.radToDeg(this.position.angleTo(CartesianAxes.ZAxis));
+        return Vector3Helpers.angleBetweenVectors(CartesianAxes.ZAxis, this.position, CartesianAxes.ZAxis);
     }
 
     phi() {
-        return THREE.Math.radToDeg(this.position.angleTo(CartesianAxes.XAxis));
+        return Vector3Helpers.angleBetweenVectors(CartesianAxes.XAxis, this.position, CartesianAxes.ZAxis);
     }
 }
 
