@@ -10,6 +10,30 @@ body {
     padding-top: 56px;
 }
 
+.display {
+    display: block;
+}
+
+.no-display {
+    display: none;
+}
+
+.info {
+    color: #17a2b8;
+}
+
+.success {
+    color: #28a745;
+}
+
+.warning {
+    color: #ffc107;
+}
+
+.danger {
+    color: dc3545;
+}
+
 #bloch-sphere {
     height: 80%;
 }
@@ -41,4 +65,12 @@ body {
 
 .btn-sharp {
     border-radius: 0px;
+}
+
+.textarea-custom {
+    border-radius: 0px;
+    height: 250px;
+    min-height: 250px;
+    max-height: 250px;
+    resize: none;
 }

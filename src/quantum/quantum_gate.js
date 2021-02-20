@@ -4,12 +4,12 @@ import {
 
 class QuantumGate {
     constructor(x, y, z, rotation) {
-        this.axis = new THREE.Vector3();
-        this.axis.add(CartesianAxes.XAxis.multiplyScalar(x));
-        this.axis.add(CartesianAxes.YAxis.multiplyScalar(y));
-        this.axis.add(CartesianAxes.ZAxis.multiplyScalar(z));
-
+        this.axis = new THREE.Vector3(x, y, z);
         this.rotation = rotation;
+    }
+
+    get transformationAxis() {
+        return CartesianAxes.Vector3(this.axis.x, this.axis.y, this.axis.z).normalize();
     }
 }
 

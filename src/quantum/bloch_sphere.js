@@ -18,6 +18,9 @@ class BlochSphere extends BaseGroup {
     constructor(radius, properties) {
         if (!properties) properties = {};
 
+        if (!properties.theta) properties.theta = "0.0000";
+        if (!properties.phi) properties.phi = "90.0000";
+
         if (!properties.color) properties.color = 0xFFFFFF;
         if (!properties.opacity) properties.opacity = 0.8;
 
@@ -54,6 +57,10 @@ class BlochSphere extends BaseGroup {
 
         // Create QuantumState
         this.quantumState = new QuantumState(this.statePointer.theta(), this.statePointer.phi());
+
+        // Set QuantumState to StatePointer
+        this.updateQuantumState(CartesianAxes.YAxis, THREE.Math.degToRad(properties.theta));
+        this.updateQuantumState(CartesianAxes.ZAxis, THREE.Math.degToRad(properties.phi));
     }
 
     updateQuantumState(axis, angle) {

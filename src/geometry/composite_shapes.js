@@ -65,16 +65,26 @@ class CartesianAxes extends BaseGroup {
         this.add(this.zAxis);
     };
 
-    static get XAxis () {
+    static get XAxis() {
         return new THREE.Vector3(0, 0, 1);
     }
 
-    static get YAxis () {
+    static get YAxis() {
         return new THREE.Vector3(1, 0, 0);
     }
 
-    static get ZAxis () {
+    static get ZAxis() {
         return new THREE.Vector3(0, 1, 0);
+    }
+
+    static Vector3(x, y, z) {
+        let transformedAxis = new THREE.Vector3();
+
+        transformedAxis.add(CartesianAxes.XAxis.multiplyScalar(x));
+        transformedAxis.add(CartesianAxes.YAxis.multiplyScalar(y));
+        transformedAxis.add(CartesianAxes.ZAxis.multiplyScalar(z));
+
+        return transformedAxis;
     }
 }
 
