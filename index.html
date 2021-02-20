@@ -74,12 +74,18 @@
 			<div class="modal-content rounded-0">
 				<div class="modal-body">
 					<div>
-						<p>Link to current Bloch sphere state, custom gates and lambda gates.</p>
+						<label class="form-label">Link to current Bloch sphere state,
+							custom gates and lambda gates.</label>
 						<textarea id="export-workspace-textarea" class="form-control textarea-custom"
 							readonly></textarea>
 					</div>
+					<div class="form-check">
+						<input id="export-workspace-encode-url" class="form-check-input" type="checkbox">
+						<label class="form-label" for="export-workspace-encode-url">Encode URL</label>
+					</div>
 					<div>
-						<button id="export-workspace" class="btn btn-primary mt-2 btn-sharp">Copy to clipboard</button>
+						<button id="export-workspace" class="btn btn-primary mt-2 btn-sharp">
+							Copy to clipboard</button>
 					</div>
 				</div>
 			</div>

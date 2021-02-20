@@ -81,11 +81,8 @@ var ExportWorkspaceEvents = {
         // Update URL Hash
         window.location.hash = workspacePropertiesJson;
 
-        // Decode Location with Unsafe URL Characters
-        let location = decodeURIComponent(window.location);
-
-        // Update Export Workspace
-        $("#export-workspace-textarea").val(location);
+        // Update Workspace URL
+        ExportWorkspaceEvents.updateWorkspaceURL(true);
     },
 
     loadWorkspace: function () {
@@ -122,9 +119,26 @@ var ExportWorkspaceEvents = {
         $("#azimuth-angle-content").html(`${workspaceProperties.lambdaGates.azimuthAngle}<span>&#176;</span>`);
     },
 
+    updateWorkspaceURL: function (decoded) {
+        let location = window.location;
+
+        if (decoded)
+        {
+            // Decode Location with Unsafe URL Characters
+            location = decodeURIComponent(location);
+        }
+
+        // Update Export Workspace
+        $("#export-workspace-textarea").val(location);
+    },
+
     copyWorkspaceToClipboard: function () {
         $("#export-workspace-textarea").select();
         document.execCommand("copy");
+    },
+
+    resetExportWorkspaceModel: function () {
+        $("#export-workspace-encode-url").prop('checked', false);
     }
 };
 
