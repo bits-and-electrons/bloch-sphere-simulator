@@ -33,9 +33,9 @@ test("vector3-helpers-angle-between-vectors-basic", () => {
 
     expect(
         Vector3Helpers.angleBetweenVectors(CartesianAxes.ZAxis, CartesianAxes.XAxis, CartesianAxes.ZAxis)
-    ).toBe(-90);
+    ).toBe(90);
 
     expect(
         Vector3Helpers.angleBetweenVectors(CartesianAxes.ZAxis, CartesianAxes.YAxis, CartesianAxes.ZAxis)
-    ).toBe(-90);
+    ).toBe(90);
 });
