@@ -1,3 +1,5 @@
+import * as THREE from '../libs/three/three.module.js';
+
 
 class BaseMesh extends THREE.Mesh {
     constructor(geometry, meterial, properties) {

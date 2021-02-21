@@ -1,6 +1,9 @@
+import * as THREE from '../libs/three/three.module.js';
+
 import {
     BaseMesh
-} from "./bases.js"
+} from "./bases.js";
+
 
 class Cylinder extends BaseMesh {
     constructor(height, radiusTop, radiusBottom, properties) {

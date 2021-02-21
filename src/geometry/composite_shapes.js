@@ -1,6 +1,8 @@
+import * as THREE from '../libs/three/three.module.js';
+
 import {
     BaseGroup
-} from "./bases.js"
+} from "./bases.js";
 
 import {
     Cylinder, Sphere
@@ -9,6 +11,7 @@ import {
 import {
     Vector3Helpers
 } from "../mathutils.js";
+
 
 class Axis extends BaseGroup {
     constructor(height, width, properties) {
