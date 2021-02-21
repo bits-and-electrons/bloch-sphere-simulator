@@ -21,6 +21,10 @@ import {
     ExportWorkspaceEventsListeners
 } from "./event_listeners.js";
 
+import {
+    PRECISION
+} from "./constants.js"
+
 
 var GlobalContext = {
     canvas: null,
@@ -214,8 +218,8 @@ var GlobalContext = {
                 let quantumState = GlobalContext.blochSphere.quantumState;
 
                 // Save Theta & Phi
-                GlobalContext.blochSphereState.theta = quantumState.theta.toFixed(4);
-                GlobalContext.blochSphereState.phi = quantumState.phi.toFixed(4);
+                GlobalContext.blochSphereState.theta = quantumState.theta.toFixed(PRECISION);
+                GlobalContext.blochSphereState.phi = quantumState.phi.toFixed(PRECISION);
 
                 // Save Workspace
                 ExportWorkspaceEvents.saveWorkspace();
