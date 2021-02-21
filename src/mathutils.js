@@ -1,5 +1,15 @@
 import * as THREE from './libs/three/three.module.js';
 
+import {
+    PRECISION
+} from "./constants.js"
+
+
+class Float {
+    static parse(num) {
+        return parseFloat(num.toFixed(PRECISION));
+    }
+}
 
 class Complex {
     constructor(real, img) {
@@ -19,7 +29,7 @@ class Vector3Helpers {
         let crossProduct = new THREE.Vector3();
 
         crossProduct.crossVectors(vector1, vector2);
-        if (parseFloat(crossProduct.dot(planeNormal).toFixed(4)) < 0) {
+        if (Float.parse(crossProduct.dot(planeNormal)) < 0) {
             angle *= -1;
         }
 
@@ -28,6 +38,7 @@ class Vector3Helpers {
 }
 
 export {
+    Float,
     Complex,
     Vector3Helpers
 };

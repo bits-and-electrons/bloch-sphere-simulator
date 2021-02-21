@@ -3,12 +3,12 @@ import {
 } from "./quantum/quantum_gate.js"
 
 import {
-    ToolboxEventListeners
-} from "./event_listeners.js";
-
-import {
     GlobalContext
 } from "./context.js";
+
+import {
+    PRECISION
+} from "./constants.js"
 
 
 var ToolboxEvents = {
@@ -53,17 +53,17 @@ var BlochSphereStateEvents = {
         let quantumState = GlobalContext.blochSphere.quantumState;
 
         // Update Theta & Phi
-        $("#bloch-sphere-state-theta").html(quantumState.theta.toFixed(4));
-        $("#bloch-sphere-state-phi").html(quantumState.phi.toFixed(4));
+        $("#bloch-sphere-state-theta").html(quantumState.theta.toFixed(PRECISION));
+        $("#bloch-sphere-state-phi").html(quantumState.phi.toFixed(PRECISION));
 
         // Update Alpha & Beta
-        $("#bloch-sphere-state-alpha").html(quantumState.alpha.toFixed(4));
-        $("#bloch-sphere-state-beta").html(quantumState.beta.toFixed(4));
+        $("#bloch-sphere-state-alpha").html(quantumState.alpha.toFixed(PRECISION));
+        $("#bloch-sphere-state-beta").html(quantumState.beta.toFixed(PRECISION));
 
         // Update X, Y & Z
-        $("#bloch-sphere-state-x").html(quantumState.x.toFixed(4));
-        $("#bloch-sphere-state-y").html(quantumState.y.toFixed(4));
-        $("#bloch-sphere-state-z").html(quantumState.z.toFixed(4));
+        $("#bloch-sphere-state-x").html(quantumState.x.toFixed(PRECISION));
+        $("#bloch-sphere-state-y").html(quantumState.y.toFixed(PRECISION));
+        $("#bloch-sphere-state-z").html(quantumState.z.toFixed(PRECISION));
     }
 };
 
