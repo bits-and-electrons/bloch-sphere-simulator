@@ -10,7 +10,7 @@
     "quantum-mechanics"
   ],
   "scripts": {
-    "test": "jest"
+    "test": "jest --config jest.config.json --no-cache"
   },
   "repository": {
     "type": "git",
