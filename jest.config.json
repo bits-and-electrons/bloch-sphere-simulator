@@ -1,0 +1,11 @@
+{
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+        "./src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+        "./src/libs/*"
+    ],
+    "coverageDirectory": "./coverage",
+    "verbose": true
+}
