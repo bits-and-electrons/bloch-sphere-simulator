@@ -19,27 +19,27 @@ class BaseMesh extends THREE.Mesh {
         this.rotation.z = properties.rotation.z;
     }
 
-    positionX() {
+    posX() {
         return this.position.x;
     }
 
-    positionY() {
+    posY() {
         return this.position.y;
     }
 
-    positionZ() {
+    posZ() {
         return this.position.z;
     }
 
-    rotationX() {
+    rotX() {
         return this.rotation.x;
     }
 
-    rotationY() {
+    rotY() {
         return this.rotation.y;
     }
 
-    rotationZ() {
+    rotZ() {
         return this.rotation.z;
     }
 }
