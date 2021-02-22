@@ -1,6 +1,9 @@
+import * as THREE from '../libs/three/three.module.js';
+
 import { 
     CartesianAxes
  } from "../geometry/composite_shapes.js";
+
 
 class QuantumGate {
     constructor(x, y, z, rotation) {
