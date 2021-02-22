@@ -214,12 +214,12 @@ var GlobalContext = {
                 GlobalContext.blochSphereOperation.inProgress = false;
                 ToolboxEvents.enableQuantumGates();
 
-                // Get Current QuantumState
-                let quantumState = GlobalContext.blochSphere.quantumState;
+                // Get BlochSphereState
+                let blochSphereState = GlobalContext.blochSphere.blochSphereState;
 
                 // Save Theta & Phi
-                GlobalContext.blochSphereState.theta = quantumState.theta.toFixed(PRECISION);
-                GlobalContext.blochSphereState.phi = quantumState.phi.toFixed(PRECISION);
+                GlobalContext.blochSphereState.theta = blochSphereState.theta.toFixed(PRECISION);
+                GlobalContext.blochSphereState.phi = blochSphereState.phi.toFixed(PRECISION);
 
                 // Save Workspace
                 ExportWorkspaceEvents.saveWorkspace();
@@ -228,12 +228,12 @@ var GlobalContext = {
                 if (GlobalContext.blochSphereOperation.rotation > 0) {
                     // Apply Delta Quantum Operation
                     GlobalContext.blochSphereOperation.rotation -= 1;
-                    GlobalContext.blochSphere.updateQuantumState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(1));
+                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(1));
                 }
                 else {
                     // Apply Delta Quantum Operation
                     GlobalContext.blochSphereOperation.rotation += 1;
-                    GlobalContext.blochSphere.updateQuantumState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(-1));
+                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(-1));
                 }
 
                 // Update BlochSphere State

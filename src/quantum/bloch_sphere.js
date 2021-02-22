@@ -11,8 +11,9 @@ import {
 } from "../geometry/composite_shapes.js";
 
 import {
-    QuantumState
-} from "./quantum_state.js"
+    BlochSphereState
+} from "./bloch_sphere_state.js";
+
 
 class BlochSphere extends BaseGroup {
     constructor(radius, properties) {
@@ -55,19 +56,19 @@ class BlochSphere extends BaseGroup {
         // Add StatePointer to BaseGroup
         this.add(this.statePointer);
 
-        // Create QuantumState
-        this.quantumState = new QuantumState(this.statePointer.theta(), this.statePointer.phi());
+        // Create BlochSphereState
+        this.blochSphereState = new BlochSphereState(this.statePointer.theta(), this.statePointer.phi());
 
-        // Set QuantumState to StatePointer
-        this.updateQuantumState(CartesianAxes.YAxis, THREE.Math.degToRad(properties.theta));
-        this.updateQuantumState(CartesianAxes.ZAxis, THREE.Math.degToRad(properties.phi));
+        // Set StatePointer
+        this.updateBlochSphereState(CartesianAxes.YAxis, THREE.Math.degToRad(properties.theta));
+        this.updateBlochSphereState(CartesianAxes.ZAxis, THREE.Math.degToRad(properties.phi));
     }
 
-    updateQuantumState(axis, angle) {
+    updateBlochSphereState(axis, angle) {
         this.statePointer.rotate(axis, new THREE.Vector3(), angle);
 
-        // Update QuantumState
-        this.quantumState.update(this.statePointer.theta(), this.statePointer.phi());
+        // Update BlochSphereState
+        this.blochSphereState.update(this.statePointer.theta(), this.statePointer.phi());
     }
 }
 
