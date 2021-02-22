@@ -17,3 +17,9 @@ steps:
     npm install
     npm test
   displayName: 'Test: Bloch sphere simulator'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: 'coverage/cobertura-coverage.xml'
+  displayName: 'Publish Code Coverage'

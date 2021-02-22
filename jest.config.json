@@ -7,5 +7,6 @@
         "./src/libs/*"
     ],
     "coverageDirectory": "./coverage",
+    "coverageReporters": ["json", "lcov", "text", "clover", "cobertura"],
     "verbose": true
 }
