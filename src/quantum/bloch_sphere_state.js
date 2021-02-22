@@ -1,10 +1,12 @@
+import * as THREE from '../libs/three/three.module.js';
+
 import {
     Float,
     Complex
 } from "../mathutils.js";
 
 
-class QuantumState {
+class BlochSphereState {
     constructor(theta, phi) {
         this.update(theta, phi);
     }
@@ -29,5 +31,5 @@ class QuantumState {
 }
 
 export {
-    QuantumState
+    BlochSphereState
 }
