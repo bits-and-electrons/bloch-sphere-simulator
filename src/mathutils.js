@@ -49,8 +49,8 @@ class Float {
 
 class Complex {
     constructor(real, img) {
-        this.real = real;
-        this.img = img;
+        this.real = Float.round(real);
+        this.img = Float.round(img);
     }
 
     toString() {
