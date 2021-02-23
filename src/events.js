@@ -9,11 +9,11 @@ import {
 
 var ToolboxEvents = {
     enableQuantumGates: function () {
-        $("button[id$='gate']").attr("disabled", false);
+        $("button[id$='Gate']").attr("disabled", false);
     },
 
     disableQuantumGates: function () {
-        $("button[id$='gate']").attr("disabled", true);
+        $("button[id$='Gate']").attr("disabled", true);
     },
 
     createCustomGate: function (x, y, z, rotation) {
