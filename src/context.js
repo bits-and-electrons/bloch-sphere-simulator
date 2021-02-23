@@ -31,7 +31,7 @@ var GlobalContext = {
 
     blochSphereOperation: {
         inProgress: false,
-        transformationAxis: null,
+        rotationAxis: null,
         rotation: 0
     },
 
@@ -198,7 +198,7 @@ var GlobalContext = {
 
         GlobalContext.blochSphereOperation.inProgress = true;
 
-        GlobalContext.blochSphereOperation.transformationAxis = gate.transformationAxis;
+        GlobalContext.blochSphereOperation.rotationAxis = gate.rotationAxis;
         GlobalContext.blochSphereOperation.rotation = gate.rotation
     },
 
@@ -224,12 +224,12 @@ var GlobalContext = {
                 if (GlobalContext.blochSphereOperation.rotation > 0) {
                     // Apply Delta Quantum Operation
                     GlobalContext.blochSphereOperation.rotation -= 1;
-                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(1));
+                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.rotationAxis, THREE.Math.degToRad(1));
                 }
                 else {
                     // Apply Delta Quantum Operation
                     GlobalContext.blochSphereOperation.rotation += 1;
-                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(-1));
+                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.rotationAxis, THREE.Math.degToRad(-1));
                 }
 
                 // Update BlochSphereState

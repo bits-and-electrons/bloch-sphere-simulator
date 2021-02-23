@@ -11,7 +11,7 @@ class QuantumGate {
         this.rotation = rotation;
     }
 
-    get transformationAxis() {
+    get rotationAxis() {
         return CartesianAxes.Vector3(this.axis.x, this.axis.y, this.axis.z).normalize();
     }
 }
