@@ -6,7 +6,16 @@
     "coveragePathIgnorePatterns": [
         "./src/libs/*"
     ],
+    "setupFiles": [
+        "jest-canvas-mock"
+    ],
     "coverageDirectory": "./coverage",
-    "coverageReporters": ["json", "lcov", "text", "clover", "cobertura"],
+    "coverageReporters": [
+        "json",
+        "lcov",
+        "text",
+        "clover",
+        "cobertura"
+    ],
     "verbose": true
 }

@@ -1,3 +1,5 @@
+import * as THREE from './libs/three/three.module.js';
+
 import {
     OrbitControls
 } from "./libs/three/jsm/controls/OrbitControls.js";
