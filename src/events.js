@@ -1,14 +1,10 @@
 import {
     QuantumGate
-} from "./quantum/quantum_gate.js"
+} from "./quantum/quantum_gate.js";
 
 import {
     GlobalContext
 } from "./context.js";
-
-import {
-    PRECISION
-} from "./constants.js"
 
 
 var ToolboxEvents = {
@@ -21,11 +17,11 @@ var ToolboxEvents = {
     },
 
     createCustomGate: function (x, y, z, rotation) {
-        let count = Object.keys(GlobalContext.customGates).length + 1;
+        let count = Object.keys(GlobalContext.customGatesProperties).length + 1;
         let id = "c" + count + "-customGate";
 
         let customGate = new QuantumGate(x, y, z, rotation);
-        GlobalContext.customGates[id] = customGate;
+        GlobalContext.customGatesProperties[id] = customGate;
 
         let customGateHtml = `
             <button type="button" id="${id}" class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
@@ -53,82 +49,30 @@ var BlochSphereStateEvents = {
         let blochSphereState = GlobalContext.blochSphere.blochSphereState;
 
         // Update Theta & Phi
-        $("#bloch-sphere-state-theta").html(blochSphereState.theta.toFixed(PRECISION));
-        $("#bloch-sphere-state-phi").html(blochSphereState.phi.toFixed(PRECISION));
+        $("#bloch-sphere-state-theta").html(blochSphereState.theta.toString());
+        $("#bloch-sphere-state-phi").html(blochSphereState.phi.toString());
 
         // Update Alpha & Beta
-        $("#bloch-sphere-state-alpha").html(blochSphereState.alpha.toFixed(PRECISION));
-        $("#bloch-sphere-state-beta").html(blochSphereState.beta.toFixed(PRECISION));
+        $("#bloch-sphere-state-alpha").html(blochSphereState.alpha.toString());
+        $("#bloch-sphere-state-beta").html(blochSphereState.beta.toString());
 
         // Update X, Y & Z
-        $("#bloch-sphere-state-x").html(blochSphereState.x.toFixed(PRECISION));
-        $("#bloch-sphere-state-y").html(blochSphereState.y.toFixed(PRECISION));
-        $("#bloch-sphere-state-z").html(blochSphereState.z.toFixed(PRECISION));
+        $("#bloch-sphere-state-x").html(blochSphereState.x.toString());
+        $("#bloch-sphere-state-y").html(blochSphereState.y.toString());
+        $("#bloch-sphere-state-z").html(blochSphereState.z.toString());
     }
 };
 
-var ExportWorkspaceEvents = {
-    saveWorkspace: function () {
-        let workspaceProperties = {
-            "blochSphereState": GlobalContext.blochSphereState,
-            "customGates": GlobalContext.customGates,
-            "lambdaGates": GlobalContext.lambdaGates
-        };
-
-        // Stringfy Workspace Properies
-        let workspacePropertiesJson = JSON.stringify(workspaceProperties);
-
-        // Update URL Hash
-        window.location.hash = workspacePropertiesJson;
-
-        // Update Workspace URL
-        ExportWorkspaceEvents.updateWorkspaceURL(true);
-    },
-
-    loadWorkspace: function () {
-        // Decode Hash with Unsafe URL Characters
-        let hash = decodeURIComponent(window.location.hash);
-
-        if (hash.length == 0) {
-            return;
-        }
-
-        // Remove '#' Hrom hash & Parse Workspace Properties
-        let workspacePropertiesJson = hash.substring(1);
-        let workspaceProperties = JSON.parse(workspacePropertiesJson);
-
-        // Load BlochSphere State
-        if (workspaceProperties.blochSphereState != null) {
-            GlobalContext.blochSphereState = workspaceProperties.blochSphereState;
-        }
-
-        // Load Custom Gates
-        if (workspaceProperties.customGates != null) {
-            for (const [_, customGate] of Object.entries(workspaceProperties.customGates)) {
-                ToolboxEvents.createCustomGate(customGate.axis.x, customGate.axis.y, customGate.axis.z, customGate.rotation);
-            }
-        }
-
-        // Load Lambda Gates
-        GlobalContext.lambdaGates = workspaceProperties.lambdaGates;
-
-        $("#polar-angle").val(workspaceProperties.lambdaGates.polarAngle);
-        $("#polar-angle-content").html(`${workspaceProperties.lambdaGates.polarAngle}<span>&#176;</span>`);
-
-        $("#azimuth-angle").val(workspaceProperties.lambdaGates.azimuthAngle);
-        $("#azimuth-angle-content").html(`${workspaceProperties.lambdaGates.azimuthAngle}<span>&#176;</span>`);
-    },
-
-    updateWorkspaceURL: function (decoded) {
+var NavbarEvents = {
+    updateWorkspace: function (decoded) {
         let location = window.location;
 
-        if (decoded)
-        {
-            // Decode Location with Unsafe URL Characters
+        // Decode Location with unsafe URL characters
+        if (decoded) {
             location = decodeURIComponent(location);
         }
 
-        // Update Export Workspace
+        // Update Workspace
         $("#export-workspace-textarea").val(location);
     },
 
@@ -142,7 +86,61 @@ var ExportWorkspaceEvents = {
     }
 };
 
+var WorkspaceEvents = {
+    saveWorkspace: function () {
+        let workspaceProperties = {
+            "blochSphereStateProperties": GlobalContext.blochSphereStateProperties,
+            "customGatesProperties": GlobalContext.customGatesProperties,
+            "lambdaGatesProperties": GlobalContext.lambdaGatesProperties
+        };
+
+        // Stringfy Workspace properies
+        let workspacePropertiesJson = JSON.stringify(workspaceProperties);
+
+        // Update URL hash
+        window.location.hash = workspacePropertiesJson;
+
+        // Update Workspace
+        NavbarEvents.updateWorkspace(true);
+    },
+
+    loadWorkspace: function () {
+        // Decode Hash with unsafe URL characters
+        let hash = decodeURIComponent(window.location.hash);
+
+        if (hash.length == 0) {
+            return;
+        }
+
+        // Remove '#' from hash & Parse workspace properties
+        let workspacePropertiesJson = hash.substring(1);
+        let workspaceProperties = JSON.parse(workspacePropertiesJson);
+
+        // Load BlochSphereState properties
+        if (workspaceProperties.blochSphereStateProperties != null) {
+            GlobalContext.blochSphereStateProperties = workspaceProperties.blochSphereStateProperties;
+        }
+
+        // Load Custom gates properties
+        if (workspaceProperties.customGatesProperties != null) {
+            for (const [_, customGate] of Object.entries(workspaceProperties.customGatesProperties)) {
+                ToolboxEvents.createCustomGate(customGate.axis.x, customGate.axis.y, customGate.axis.z, customGate.rotation);
+            }
+        }
+
+        // Load Lambda gates properties
+        GlobalContext.lambdaGatesProperties = workspaceProperties.lambdaGatesProperties;
+
+        $("#polar-angle").val(workspaceProperties.lambdaGatesProperties.polarAngle);
+        $("#polar-angle-content").html(`${workspaceProperties.lambdaGatesProperties.polarAngle}<span>&#176;</span>`);
+
+        $("#azimuth-angle").val(workspaceProperties.lambdaGatesProperties.azimuthAngle);
+        $("#azimuth-angle-content").html(`${workspaceProperties.lambdaGatesProperties.azimuthAngle}<span>&#176;</span>`);
+    }
+};
+
 export {
     ToolboxEvents, BlochSphereStateEvents,
-    ExportWorkspaceEvents
+    NavbarEvents,
+    WorkspaceEvents
 };

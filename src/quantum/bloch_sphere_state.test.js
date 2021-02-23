@@ -6,6 +6,10 @@ import {
     BlochSphereState
 } from "./bloch_sphere_state.js";
 
+import {
+    PRECISION
+} from "../constants.js";
+
 
 test("bloch-sphere-state-basic", () => {
     let testObj = new BlochSphereState(0, 90);
@@ -23,8 +27,8 @@ test("bloch-sphere-state-basic", () => {
     ).toBe(1);
 
     expect(
-        testObj.beta.toFixed(4)
-    ).toBe(new Complex(0, 0).toFixed(4));
+        testObj.beta.toFixed(PRECISION)
+    ).toBe(new Complex(0, 0).toFixed(PRECISION));
 
     expect(
         testObj.x
