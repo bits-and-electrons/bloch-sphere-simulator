@@ -5,8 +5,6 @@ import {
 
 test("bloch-sphere-basic", () => {
     let testObj = new BlochSphere(10, {
-        theta: "0.0000",
-        phi: "90.0000",
         color: 0x808080,
         axesLength: 12,
         axesWidth: 2

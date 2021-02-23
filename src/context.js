@@ -11,19 +11,14 @@ import {
 } from "./quantum/quantum_gate.js";
 
 import {
-    ToolboxEvents,
-    BlochSphereStateEvents,
-    ExportWorkspaceEvents
+    ToolboxEvents, BlochSphereStateEvents,
+    WorkspaceEvents
 } from "./events.js";
 
 import {
     ToolboxEventListeners,
-    ExportWorkspaceEventsListeners
+    NavbarEventListeners
 } from "./event_listeners.js";
-
-import {
-    PRECISION
-} from "./constants.js"
 
 
 var GlobalContext = {
@@ -33,10 +28,6 @@ var GlobalContext = {
     renderer: null, labelRenderer: null, controls: null,
 
     blochSphere: null,
-    blochSphereState: {
-        theta: "0.0000",
-        phi: "90.0000"
-    },
 
     blochSphereOperation: {
         inProgress: false,
@@ -44,7 +35,12 @@ var GlobalContext = {
         rotation: 0
     },
 
-    builtInGates: {
+    blochSphereStateProperties: {
+        theta: "0.0000",
+        phi: "90.0000"
+    },
+
+    builtInGatesProperties: {
         "px-builtInGate": new QuantumGate(
             1, 0, 0, 180
         ),
@@ -101,25 +97,25 @@ var GlobalContext = {
         )
     },
 
-    customGates: {
+    customGatesProperties: {
 
     },
 
-    lambdaGates: {
+    lambdaGatesProperties: {
         polarAngle: "0",
         azimuthAngle: "0"
     },
 
     init: function () {
         // Load Workspace
-        ExportWorkspaceEvents.loadWorkspace();
+        WorkspaceEvents.loadWorkspace();
 
-        // Get Canves Details
+        // Get Canves
         let canvas = document.getElementById("bloch-sphere");
         let canvasWidth = canvas.offsetWidth;
         let canvasHeight = canvas.offsetHeight;
 
-        // Set Diameter to 80% of Canvas Size
+        // Set diameter to 80% of Canvas size
         let diameter = (Math.min(canvasWidth, canvasHeight) / 100) * 80;
 
         // Init Scene
@@ -153,8 +149,8 @@ var GlobalContext = {
 
         // Initialize BlochSphere
         GlobalContext.blochSphere = new BlochSphere(diameter / 2, {
-            theta: GlobalContext.blochSphereState.theta,
-            phi: GlobalContext.blochSphereState.phi,
+            theta: GlobalContext.blochSphereStateProperties.theta,
+            phi: GlobalContext.blochSphereStateProperties.phi,
             color: 0x808080,
             axesLength: (diameter / 2) + ((diameter / 2) * 0.2),
             axesWidth: 2
@@ -163,14 +159,14 @@ var GlobalContext = {
         // Add BlochSphere to Scene
         GlobalContext.scene.add(GlobalContext.blochSphere);
 
-        // Start All Events Listeners
+        // Start all events listeners
         GlobalContext.startAllEventListeners();
 
-        // Update BlochSphere State
+        // Update BlochSphereState
         BlochSphereStateEvents.updateBlochSphereState();
 
         // Save Workspace
-        ExportWorkspaceEvents.saveWorkspace();
+        WorkspaceEvents.saveWorkspace();
     },
 
     onload: function () {
@@ -179,7 +175,7 @@ var GlobalContext = {
     },
 
     onresize: function () {
-        // Get Canves Details
+        // Get Canves
         let canvas = document.getElementById("bloch-sphere");
         let canvasWidth = canvas.offsetWidth;
         let canvasHeight = canvas.offsetHeight;
@@ -194,7 +190,7 @@ var GlobalContext = {
 
     startAllEventListeners: function () {
         ToolboxEventListeners.startAllEventListeners();
-        ExportWorkspaceEventsListeners.startAllEventListeners();
+        NavbarEventListeners.startAllEventListeners();
     },
 
     startBlochSphereOperation: function (gate) {
@@ -218,11 +214,11 @@ var GlobalContext = {
                 let blochSphereState = GlobalContext.blochSphere.blochSphereState;
 
                 // Save Theta & Phi
-                GlobalContext.blochSphereState.theta = blochSphereState.theta.toFixed(PRECISION);
-                GlobalContext.blochSphereState.phi = blochSphereState.phi.toFixed(PRECISION);
+                GlobalContext.blochSphereStateProperties.theta = blochSphereState.theta;
+                GlobalContext.blochSphereStateProperties.phi = blochSphereState.phi;
 
                 // Save Workspace
-                ExportWorkspaceEvents.saveWorkspace();
+                WorkspaceEvents.saveWorkspace();
             }
             else {
                 if (GlobalContext.blochSphereOperation.rotation > 0) {
@@ -236,7 +232,7 @@ var GlobalContext = {
                     GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.transformationAxis, THREE.Math.degToRad(-1));
                 }
 
-                // Update BlochSphere State
+                // Update BlochSphereState
                 BlochSphereStateEvents.updateBlochSphereState();
             }
         }

@@ -1,10 +1,11 @@
 import {
     QuantumGate
-} from "./quantum/quantum_gate.js"
+} from "./quantum/quantum_gate.js";
 
 import {
     ToolboxEvents,
-    ExportWorkspaceEvents
+    NavbarEvents,
+    WorkspaceEvents
 } from "./events.js";
 
 import {
@@ -15,7 +16,7 @@ import {
 var ToolboxEventListeners = {
     builtInQuantumGatesEventListeners: function () {
         $("button[id$='builtInGate']").click(function () {
-            GlobalContext.startBlochSphereOperation(GlobalContext.builtInGates[$(this).attr("id")]);
+            GlobalContext.startBlochSphereOperation(GlobalContext.builtInGatesProperties[$(this).attr("id")]);
         });
     },
 
@@ -25,32 +26,32 @@ var ToolboxEventListeners = {
                 $("#custom-gates-form").addClass("was-validated");
             }
             else {
-                // Get Custom Gate Properties
+                // Get Custom gate properties
                 let x = $("#custom-gate-x").val();
                 let y = $("#custom-gate-y").val();
                 let z = $("#custom-gate-z").val();
                 let rotation = $("#custom-gate-rotation").val();
 
-                // Create Custom Gate
+                // Create Custom gate
                 ToolboxEvents.createCustomGate(x, y, z, rotation);
 
-                // Reset Custom Quantum Gate Model 
+                // Reset custom Quantum gate model 
                 ToolboxEvents.resetCustomGateModel();
 
                 // Save Workspace
-                ExportWorkspaceEvents.saveWorkspace();
+                WorkspaceEvents.saveWorkspace();
             }
         });
 
         $('#custom-gate-modal').on('hidden.bs.modal', function () {
-            // Reset Custom Quantum Gate Model 
+            // Reset custom Quantum gate model 
             ToolboxEvents.resetCustomGateModel();
         });
     },
 
     customGatesEventListeners: function () {
         $("#custom-gates-section").on("click", ".quantum-gate", function () {
-            GlobalContext.startBlochSphereOperation(GlobalContext.customGates[$(this).attr("id")]);
+            GlobalContext.startBlochSphereOperation(GlobalContext.customGatesProperties[$(this).attr("id")]);
         });
     },
 
@@ -58,40 +59,40 @@ var ToolboxEventListeners = {
         $("#polar-angle").on("input change", function () {
             let polarAngle = $("#polar-angle").val();
 
-            // Update Content
+            // Update content
             $("#polar-angle-content").html(`${polarAngle}<span>&#176;</span>`);
 
             // Save PolarAngle
-            GlobalContext.lambdaGates.polarAngle = polarAngle;
+            GlobalContext.lambdaGatesProperties.polarAngle = polarAngle;
 
             // Save Workspace
-            ExportWorkspaceEvents.saveWorkspace();
+            WorkspaceEvents.saveWorkspace();
         });
 
         $("#azimuth-angle").on("input change", function () {
             let azimuthAngle = $("#azimuth-angle").val();
 
-            // Update Content
+            // Update content
             $("#azimuth-angle-content").html(`${azimuthAngle}<span>&#176;</span>`);
 
             // Save AzimuthAngle
-            GlobalContext.lambdaGates.azimuthAngle = azimuthAngle;
+            GlobalContext.lambdaGatesProperties.azimuthAngle = azimuthAngle;
 
             // Save Workspace
-            ExportWorkspaceEvents.saveWorkspace();
+            WorkspaceEvents.saveWorkspace();
         });
 
         $("#polar-lambdaGate").click(function () {
             let polarAngle = $("#polar-angle").val();
 
-            // Apply Polar Lambda Gate
+            // Apply Polar Lambda gate
             GlobalContext.startBlochSphereOperation(new QuantumGate(0, 1, 0, polarAngle));
         });
 
         $("#azimuth-lambdaGate").click(function () {
             let azimuthAngle = $("#azimuth-angle").val();
 
-            // Apply Azimuth Lambda Gate
+            // Apply Azimuth Lambda gate
             GlobalContext.startBlochSphereOperation(new QuantumGate(0, 0, 1, azimuthAngle));
         });
     },
@@ -106,33 +107,33 @@ var ToolboxEventListeners = {
     }
 };
 
-var ExportWorkspaceEventsListeners = {
+var NavbarEventListeners = {
     exportWorkspaceEventsListeners: function () {
         $("#export-workspace").click(function () {
-            ExportWorkspaceEvents.copyWorkspaceToClipboard();
+            NavbarEvents.copyWorkspaceToClipboard();
         });
 
         $("#export-workspace-encode-url").change(function() {
             if ($(this).is(':checked')) {
-                ExportWorkspaceEvents.updateWorkspaceURL(false);
+                NavbarEvents.updateWorkspace(false);
             }
             else {
-                ExportWorkspaceEvents.updateWorkspaceURL(true);
+                NavbarEvents.updateWorkspace(true);
             }
         });
 
         $('#export-workspace-modal').on('hidden.bs.modal', function () {
-            // Reset Export Workspace Model
-            ExportWorkspaceEvents.resetExportWorkspaceModel();
+            // Reset export workspace model
+            NavbarEvents.resetExportWorkspaceModel();
         });
     },
 
     startAllEventListeners: function () {
-        ExportWorkspaceEventsListeners.exportWorkspaceEventsListeners();
+        NavbarEventListeners.exportWorkspaceEventsListeners();
     }
 }
 
 export {
     ToolboxEventListeners,
-    ExportWorkspaceEventsListeners
+    NavbarEventListeners
 };

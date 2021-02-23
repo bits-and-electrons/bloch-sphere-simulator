@@ -10,8 +10,8 @@ import {
 
 test("complex-basic", () => {
     expect(
-        new Complex(2, 3).toFixed(3)
-    ).toBe("2.000 + i * 3.000");
+        new Complex(2, 3).toString()
+    ).toBe("+2.0000 + i * 3.0000");
 });
 
 test("vector3-helpers-angle-between-vectors-basic", () => {

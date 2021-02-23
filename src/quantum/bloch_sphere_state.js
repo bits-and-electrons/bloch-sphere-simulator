@@ -12,20 +12,20 @@ class BlochSphereState {
     }
 
     load() {
-        this.alpha = Float.parse(Math.cos(THREE.Math.degToRad(this.theta) / 2));
+        this.alpha = Float.round(Math.cos(THREE.Math.degToRad(this.theta) / 2));
         this.beta = new Complex(
-            Float.parse(Math.cos(THREE.Math.degToRad(this.phi)) * Math.sin(THREE.Math.degToRad(this.theta) / 2)),
-            Float.parse(Math.sin(THREE.Math.degToRad(this.phi)) * Math.sin(THREE.Math.degToRad(this.theta) / 2))
+            Float.round(Math.cos(THREE.Math.degToRad(this.phi)) * Math.sin(THREE.Math.degToRad(this.theta) / 2)),
+            Float.round(Math.sin(THREE.Math.degToRad(this.phi)) * Math.sin(THREE.Math.degToRad(this.theta) / 2))
         );
 
-        this.x = Float.parse(Math.sin(THREE.Math.degToRad(this.theta)) * Math.cos(THREE.Math.degToRad(this.phi)));
-        this.y = Float.parse(Math.sin(THREE.Math.degToRad(this.theta)) * Math.sin(THREE.Math.degToRad(this.phi)));
-        this.z = Float.parse(Math.cos(THREE.Math.degToRad(this.theta)));
+        this.x = Float.round(Math.sin(THREE.Math.degToRad(this.theta)) * Math.cos(THREE.Math.degToRad(this.phi)));
+        this.y = Float.round(Math.sin(THREE.Math.degToRad(this.theta)) * Math.sin(THREE.Math.degToRad(this.phi)));
+        this.z = Float.round(Math.cos(THREE.Math.degToRad(this.theta)));
     }
 
     update(theta, phi) {
-        this.theta = Float.parse(theta);
-        this.phi = Float.parse(phi);
+        this.theta = Float.round(theta);
+        this.phi = Float.round(phi);
         this.load();
     }
 }
