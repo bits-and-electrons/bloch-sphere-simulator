@@ -7,7 +7,6 @@ import {
 } from "./context.js";
 
 
-
 var ToolboxEvents = {
     enableQuantumGates: function () {
         $("button[id$='Gate']").attr("disabled", false);

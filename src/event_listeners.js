@@ -13,7 +13,6 @@ import {
 } from "./context.js";
 
 
-
 var ToolboxEventListeners = {
     builtInQuantumGatesEventListeners: function () {
         $("button[id$='builtInGate']").click(function () {
