@@ -19,6 +19,18 @@ class BaseMesh extends THREE.Mesh {
         this.rotation.z = properties.rotation.z;
     }
 
+    getColor() {
+        return this.material.color;
+    }
+
+    getOpacity() {
+        return this.material.opacity;
+    }
+
+    getParameters() {
+        return this.geometry.parameters;
+    }
+
     posX() {
         return this.position.x;
     }

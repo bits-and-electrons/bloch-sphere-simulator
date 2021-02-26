@@ -17,7 +17,7 @@ class Axis extends BaseGroup {
     constructor(height, width, properties) {
         if (!properties) properties = {};
 
-        if (!properties.color) properties.color = 0xFFFFFF;
+        if (!properties.color) properties.color = new THREE.Color(0xFFFFFF);
 
         super(properties);
 
@@ -40,9 +40,9 @@ class CartesianAxes extends BaseGroup {
     constructor(length, width, properties) {
         if (!properties) properties = {};
 
-        if (!properties.xAxisColor) properties.xAxisColor = 0xFF0000;
-        if (!properties.yAxisColor) properties.yAxisColor = 0x00FF00;
-        if (!properties.zAxisColor) properties.zAxisColor = 0x0000FF;
+        if (!properties.xAxisColor) properties.xAxisColor = new THREE.Color(0xFF0000);
+        if (!properties.yAxisColor) properties.yAxisColor = new THREE.Color(0x00FF00);
+        if (!properties.zAxisColor) properties.zAxisColor = new THREE.Color(0x0000FF);
 
         super(properties);
 
@@ -95,7 +95,7 @@ class StatePointer extends BaseGroup {
     constructor(height, width, properties) {
         if (!properties) properties = {};
 
-        if (!properties.color) properties.color = 0xFFFFFF;
+        if (!properties.color) properties.color = new THREE.Color(0xFFFFFF);
 
         if (!properties.pointerRadius) properties.pointerRadius = 5;
 
