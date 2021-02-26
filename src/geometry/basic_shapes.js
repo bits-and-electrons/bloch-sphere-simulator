@@ -9,7 +9,7 @@ class Cylinder extends BaseMesh {
     constructor(height, radiusTop, radiusBottom, properties) {
         if (!properties) properties = {};
 
-        if (!properties.color) properties.color = 0xFFFFFF;
+        if (!properties.color) properties.color = new THREE.Color(0xFFFFFF);
 
         if (!properties.radialSegments) properties.radialSegments = 64;
         if (!properties.heightSegments) properties.heightSegments = 64;
@@ -34,7 +34,7 @@ class Sphere extends BaseMesh {
     constructor(radius, properties) {
         if (!properties) properties = {};
 
-        if (!properties.color) properties.color = 0xFFFFFF;
+        if (!properties.color) properties.color = new THREE.Color(0xFFFFFF);
         if (!properties.opacity) properties.opacity = 1.0;
 
         if (!properties.widthSegments) properties.widthSegments = 36;
@@ -47,7 +47,7 @@ class Sphere extends BaseMesh {
         if (!properties.thetaLength) properties.thetaLength = Math.PI;
 
         if (!properties.skeleton) properties.skeleton = false;
-        if (!properties.skeletonColor) properties.skeletonColor = 0xFFFFFF;
+        if (!properties.skeletonColor) properties.skeletonColor = new THREE.Color(0xFFFFFF);
         if (!properties.skeletonWidth) properties.skeletonWidth = 1;
 
         let sphereGeometry = new THREE.SphereGeometry(

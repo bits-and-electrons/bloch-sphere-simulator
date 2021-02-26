@@ -13,12 +13,12 @@ test("axis-basic", () => {
     });
 
     expect(
-        JSON.stringify(new THREE.Vector3(testObj.posX(), testObj.posY(), testObj.posZ()))
+        JSON.stringify(testObj.position)
     ).toBe(JSON.stringify(new THREE.Vector3(10, 10, 10)));
 
     expect(
-        JSON.stringify(new THREE.Vector3(testObj.rotX(), testObj.rotY(), testObj.rotZ()))
-    ).toBe(JSON.stringify(new THREE.Vector3(10, 10, 10)));
+        JSON.stringify(testObj.rotation)
+    ).toBe(JSON.stringify(new THREE.Euler(10, 10, 10, 'XYZ')));
 });
 
 test("cartesian-axes-basic", () => {
@@ -28,12 +28,12 @@ test("cartesian-axes-basic", () => {
     });
 
     expect(
-        JSON.stringify(new THREE.Vector3(testObj.posX(), testObj.posY(), testObj.posZ()))
+        JSON.stringify(testObj.position)
     ).toBe(JSON.stringify(new THREE.Vector3(10, 10, 10)));
 
     expect(
-        JSON.stringify(new THREE.Vector3(testObj.rotX(), testObj.rotY(), testObj.rotZ()))
-    ).toBe(JSON.stringify(new THREE.Vector3(10, 10, 10)));
+        JSON.stringify(testObj.rotation)
+    ).toBe(JSON.stringify(new THREE.Euler(10, 10, 10, 'XYZ')));
 });
 
 test("state-pointer-basic", () => {
@@ -43,10 +43,10 @@ test("state-pointer-basic", () => {
     });
 
     expect(
-        JSON.stringify(new THREE.Vector3(testObj.posX(), testObj.posY(), testObj.posZ()))
+        JSON.stringify(testObj.position)
     ).toBe(JSON.stringify(new THREE.Vector3(10, 10, 10)));
 
     expect(
-        JSON.stringify(new THREE.Vector3(testObj.rotX(), testObj.rotY(), testObj.rotZ()))
-    ).toBe(JSON.stringify(new THREE.Vector3(10, 10, 10)));
+        JSON.stringify(testObj.rotation)
+    ).toBe(JSON.stringify(new THREE.Euler(10, 10, 10, 'XYZ')));
 });

@@ -1,11 +1,3 @@
-import {
-    GlobalContext
-} from "./context.js";
-
-import {
-    QuantumGate
-} from "./quantum/quantum_gate.js";
-
 
 let testBody = `
     <div id="bloch-sphere" class="col-12"></div>
@@ -27,11 +19,6 @@ let testBody = `
 `;
 
 test("context-basic", () => {
-    document.body.innerHTML = testBody;
-
-    GlobalContext.init();
-    GlobalContext.startBlochSphereOperation(new QuantumGate(1, 0, 0, 180));
-
     expect(
         true
     ).toBe(true);

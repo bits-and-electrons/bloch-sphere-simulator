@@ -15,7 +15,7 @@ import {
 
 test("bloch-sphere-basic", () => {
     let testObj = new BlochSphere(10, {
-        color: 0x808080,
+        color: new THREE.Color(0x808080),
         axesLength: 12,
         axesWidth: 2
     });
@@ -37,7 +37,7 @@ test("bloch-sphere-custom-bloch-sphere-state-1", () => {
     let testObj = new BlochSphere(10, {
         theta: Float.round(90),
         phi: Float.round(90),
-        color: 0x808080,
+        color: new THREE.Color(0x808080),
         axesLength: 12,
         axesWidth: 2
     });
@@ -59,7 +59,7 @@ test("bloch-sphere-custom-bloch-sphere-state-2", () => {
     let testObj = new BlochSphere(10, {
         theta: Float.round(180),
         phi: Float.round(90),
-        color: 0x808080,
+        color: new THREE.Color(0x808080),
         axesLength: 12,
         axesWidth: 2
     });
@@ -81,7 +81,7 @@ test("bloch-sphere-custom-bloch-sphere-state-3", () => {
     let testObj = new BlochSphere(10, {
         theta: Float.round(90),
         phi: Float.round(-90),
-        color: 0x808080,
+        color: new THREE.Color(0x808080),
         axesLength: 12,
         axesWidth: 2
     });

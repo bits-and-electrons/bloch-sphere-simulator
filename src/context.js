@@ -153,7 +153,7 @@ var GlobalContext = {
         GlobalContext.blochSphere = new BlochSphere(diameter / 2, {
             theta: GlobalContext.blochSphereStateProperties.theta,
             phi: GlobalContext.blochSphereStateProperties.phi,
-            color: 0x808080,
+            color: new THREE.Color(0x808080),
             axesLength: (diameter / 2) + ((diameter / 2) * 0.2),
             axesWidth: 2
         });

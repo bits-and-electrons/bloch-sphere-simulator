@@ -7,7 +7,6 @@ import {
 } from "./context.js";
 
 
-const $ = require("./libs/jquery/jquery-3.3.1.slim.min.js");
 
 var ToolboxEvents = {
     enableQuantumGates: function () {

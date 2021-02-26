@@ -24,7 +24,7 @@ class BlochSphere extends BaseGroup {
         if (!properties.theta) properties.theta = "0.0000";
         if (!properties.phi) properties.phi = "90.0000";
 
-        if (!properties.color) properties.color = 0xFFFFFF;
+        if (!properties.color) properties.color = new THREE.Color(0xFFFFFF);
         if (!properties.opacity) properties.opacity = 0.8;
 
         if (!properties.axesLength) properties.axesLength = radius + (radius * 0.1);
@@ -37,7 +37,7 @@ class BlochSphere extends BaseGroup {
             color: properties.color,
             opacity: properties.opacity,
             skeleton: true,
-            skeletonColor: 0x808080
+            skeletonColor: new THREE.Color(0x808080)
         });
 
         // Add Sphere to BaseGroup
@@ -51,7 +51,7 @@ class BlochSphere extends BaseGroup {
 
         // Create StatePointer
         this.statePointer = new StatePointer(radius, 3, {
-            color: 0x000000,
+            color: new THREE.Color(0xFFFFFF),
             position: new THREE.Vector3(0, radius / 2, 0)
         });
 
