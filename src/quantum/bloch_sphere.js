@@ -16,6 +16,10 @@ import {
     BlochSphereState
 } from "./bloch_sphere_state.js";
 
+import {
+    Float
+} from "../mathutils.js";
+
 
 class BlochSphere extends BaseGroup {
     constructor(radius, properties) {
@@ -61,8 +65,10 @@ class BlochSphere extends BaseGroup {
         // Create BlochSphereState
         this.blochSphereState = new BlochSphereState(this.statePointer.theta(), this.statePointer.phi());
 
-        // Set StatePointer
+        // Update BlochSphereState along Z-Axis
         this.updateBlochSphereState(CartesianAxes.YAxis, THREE.Math.degToRad(properties.theta));
+
+        // Update BlochSphereState along X-Axis
         this.updateBlochSphereState(CartesianAxes.ZAxis, THREE.Math.degToRad(properties.phi));
     }
 
