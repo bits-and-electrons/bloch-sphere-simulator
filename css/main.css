@@ -35,14 +35,15 @@ body {
 }
 
 #bloch-sphere {
-    height: 80%;
+    height: calc(90% - 56px);
 }
 
 #bloch-sphere-state {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.0vw; /* Magic number to fit html content on different screen sizes */
+    font-weight: bolder;
     text-align: center;
-    height: 20%;
+    height: 10%;
 }
 
 #toolbox {
@@ -63,14 +64,14 @@ body {
     box-shadow: none;
 }
 
-.btn-sharp {
+.btn-custom {
     border-radius: 0px;
 }
 
 .textarea-custom {
     border-radius: 0px;
-    height: 250px;
-    min-height: 250px;
-    max-height: 250px;
+    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
     resize: none;
 }

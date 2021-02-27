@@ -81,17 +81,19 @@
 			<div class="modal-content rounded-0">
 				<div class="modal-body">
 					<div>
-						<label class="form-label">Link to current Bloch sphere state,
+						<label class="form-label">Link to snapshot of current Bloch sphere state,
 							custom gates and lambda gates.</label>
 						<textarea id="export-workspace-textarea" class="form-control textarea-custom"
 							readonly></textarea>
 					</div>
 					<div class="form-check">
 						<input id="export-workspace-encode-url" class="form-check-input" type="checkbox">
-						<label class="form-label" for="export-workspace-encode-url">Encode URL</label>
+						<label class="form-label" for="export-workspace-encode-url">
+							<b>Encode URL</b>
+						</label>
 					</div>
 					<div>
-						<button id="export-workspace" class="btn btn-primary mt-2 btn-sharp">
+						<button id="export-workspace" class="btn btn-primary mt-2 btn-custom">
 							Copy to clipboard</button>
 					</div>
 				</div>
@@ -161,24 +163,24 @@
 					</div>
 					<div id="half-turn-gates-section-1" class="col-12">
 						<button type="button" id="px-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: X, Rotation: 180">
 							<span>P<sub>x</sub></span>
 						</button><!--
 						--><button type="button" id="py-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: 180">
 							<span>P<sub>y</sub></span>
 						</button><!--
 						--><button type="button" id="pz-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: 180">
 							<span>P<sub>z</sub></span>
 						</button>
 					</div>
 					<div id="half-turn-gates-section-2" class="col-12">
 						<button type="button" id="h-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: X+Z, Rotation: 180">
 							<span>H</span>
 						</button>
@@ -192,46 +194,46 @@
 					</div>
 					<div id="quarter-turn-gates-section-1" class="col-12">
 						<button type="button" id="px-12-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: X, Rotation: 90">
 							<span>P<sub>x</sub><sup>1/2</sup></span>
 						</button><!--
 						--><button type="button" id="py-12-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: 90">
 							<span>P<sub>y</sub><sup>1/2</sup></span>
 						</button><!--
 						--><button type="button" id="pz-12-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: 90">
 							<span>P<sub>z</sub><sup>1/2</sup></span>
 						</button>
 					</div>
 					<div id="quarter-turn-gates-section-2" class="col-12">
 						<button type="button" id="pxi-12-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: X, Rotation: -90">
 							<span>P<sub>x</sub><sup>-1/2</sup></span>
 						</button><!--
 						--><button type="button" id="pyi-12-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: -90">
 							<span>P<sub>y</sub><sup>-1/2</sup></span>
 						</button><!--
 						--><button type="button" id="pzi-12-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: -90">
 							<span>P<sub>z</sub><sup>-1/2</sup></span>
 						</button>
 					</div>
 					<div id="quarter-turn-gates-section-3" class="col-12">
 						<button type="button" id="s-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: 90">
 							<span>S</span>
 						</button><!--
 						--><button type="button" id="si-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: -90">
 							<span>S<sup>-1</sup></span>
 						</button>
@@ -245,34 +247,34 @@
 					</div>
 					<div id="eighth-turn-gates-section-1" class="col-12">
 						<button type="button" id="px-14-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: X, Rotation: 45">
 							<span>P<sub>x</sub><sup>1/4</sup></span>
 						</button><!--
 						--><button type="button" id="py-14-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: 45">
 							<span>P<sub>y</sub><sup>1/4</sup></span>
 						</button><!--
 						--><button type="button" id="pz-14-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: 45">
 							<span>P<sub>z</sub><sup>1/4</sup></span>
 						</button>
 					</div>
 					<div id="eighth-turn-gates-section-2" class="col-12">
 						<button type="button" id="pxi-14-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: X, Rotation: -45">
 							<span>P<sub>x</sub><sup>-1/4</sup></span>
 						</button><!--
 						--><button type="button" id="pyi-14-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Y, Rotation: -45">
 							<span>P<sub>y</sub><sup>-1/4</sup></span>
 						</button><!--
 						--><button type="button" id="pzi-14-builtInGate"
-							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+							class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
 							data-toggle="tooltip" data-html="true" title="Axis: Z, Rotation: -45">
 							<span>P<sub>z</sub><sup>-1/4</sup></span>
 						</button>
@@ -286,7 +288,7 @@
 					</div>
 					<div id="custom-gates-section" class="col-12">
 						<button type="button" id="custom-gate-add"
-							class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1" data-toggle="modal"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1" data-toggle="modal"
 							data-target="#custom-gate-modal">
 							<span>+</span>
 						</button>
@@ -341,10 +343,10 @@
 										</div>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary btn-sharp"
+										<button type="button" class="btn btn-secondary btn-custom"
 											data-dismiss="modal">Close</button>
 										<button type="submit" id="custom-gate-create"
-											class="btn btn-primary btn-sharp">Create</button>
+											class="btn btn-primary btn-custom">Create</button>
 									</div>
 								</div>
 							</div>
@@ -367,7 +369,7 @@
 								<input type="range" id="polar-angle" class="custom-range" min="0" max="360" step="1"
 									value="0">
 								<button type="button" id="polar-lambdaGate"
-									class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1">Apply</button>
+									class="col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1">Apply</button>
 							</div>
 						</form>
 					</div>
@@ -381,7 +383,7 @@
 								<input type="range" id="azimuth-angle" class="custom-range" min="0" max="360" step="1"
 									value="0">
 								<button type="button" id="azimuth-lambdaGate"
-									class="col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1">Apply</button>
+									class="col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1">Apply</button>
 							</div>
 						</form>
 					</div>

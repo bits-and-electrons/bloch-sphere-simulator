@@ -29,7 +29,7 @@ var ToolboxEvents = {
         GlobalContext.customGatesProperties[id] = customGate;
 
         let customGateHtml = `
-            <button type="button" id="${id}" class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-sharp mr-1 mt-1"
+            <button type="button" id="${id}" class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
                 data-toggle="tooltip" data-html="true" title="Axis: ${x} * X + ${y} * Y + ${z} * Z, Rotation: ${rotation}">
                 <span>C<sub>${count}</sub></span>
             </button>
