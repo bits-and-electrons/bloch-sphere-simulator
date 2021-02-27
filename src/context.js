@@ -13,8 +13,8 @@ import {
 } from "./quantum/quantum_gate.js";
 
 import {
-    ToolboxEvents, BlochSphereStateEvents,
-    NavbarEvents
+    NavbarEvents,
+    ToolboxEvents, BlochSphereStateEvents
 } from "./events.js";
 
 
@@ -186,8 +186,8 @@ var GlobalContext = {
     },
 
     startAllEventListeners: function () {
-        ToolboxEvents.eventListeners();
         NavbarEvents.eventListeners();
+        ToolboxEvents.eventListeners();
     },
 
     startBlochSphereOperation: function (gate) {
