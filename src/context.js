@@ -13,14 +13,9 @@ import {
 } from "./quantum/quantum_gate.js";
 
 import {
-    ToolboxEvents, BlochSphereStateEvents,
-    WorkspaceEvents
+    NavbarEvents,
+    ToolboxEvents, BlochSphereStateEvents
 } from "./events.js";
-
-import {
-    ToolboxEventListeners,
-    NavbarEventListeners
-} from "./event_listeners.js";
 
 
 var GlobalContext = {
@@ -110,7 +105,7 @@ var GlobalContext = {
 
     init: function () {
         // Load Workspace
-        WorkspaceEvents.loadWorkspace();
+        NavbarEvents.loadWorkspace();
 
         // Get Canves
         let canvas = document.getElementById("bloch-sphere");
@@ -168,7 +163,7 @@ var GlobalContext = {
         BlochSphereStateEvents.updateBlochSphereState();
 
         // Save Workspace
-        WorkspaceEvents.saveWorkspace();
+        NavbarEvents.saveWorkspace();
     },
 
     onload: function () {
@@ -191,8 +186,8 @@ var GlobalContext = {
     },
 
     startAllEventListeners: function () {
-        ToolboxEventListeners.startAllEventListeners();
-        NavbarEventListeners.startAllEventListeners();
+        NavbarEvents.eventListeners();
+        ToolboxEvents.eventListeners();
     },
 
     startBlochSphereOperation: function (gate) {
@@ -220,7 +215,7 @@ var GlobalContext = {
                 GlobalContext.blochSphereStateProperties.phi = blochSphereState.phi;
 
                 // Save Workspace
-                WorkspaceEvents.saveWorkspace();
+                NavbarEvents.saveWorkspace();
             }
             else {
                 if (GlobalContext.blochSphereOperation.rotation > 0) {
