@@ -17,6 +17,11 @@ var ToolboxEvents = {
     },
 
     createCustomGate: function (x, y, z, rotation) {
+        x = parseInt(x);
+        y = parseInt(y);
+        z = parseInt(z);
+        rotation = parseInt(rotation);
+
         let count = Object.keys(GlobalContext.customGatesProperties).length + 1;
         let id = "c" + count + "-customGate";
 
