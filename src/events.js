@@ -45,6 +45,83 @@ var ToolboxEvents = {
         $("#custom-gate-rotation").val("");
 
         $("#custom-gates-form").removeClass("was-validated");
+    },
+
+    eventListeners: function () {
+        $("button[id$='builtInGate']").click(function () {
+            GlobalContext.startBlochSphereOperation(GlobalContext.builtInGatesProperties[$(this).attr("id")]);
+        });
+
+        $("#custom-gate-create").click(function () {
+            if (!($("#custom-gates-form")[0].checkValidity())) {
+                $("#custom-gates-form").addClass("was-validated");
+            }
+            else {
+                // Get Custom gate properties
+                let x = $("#custom-gate-x").val();
+                let y = $("#custom-gate-y").val();
+                let z = $("#custom-gate-z").val();
+                let rotation = $("#custom-gate-rotation").val();
+
+                // Create Custom gate
+                ToolboxEvents.createCustomGate(x, y, z, rotation);
+
+                // Reset custom Quantum gate model 
+                ToolboxEvents.resetCustomGateModel();
+
+                // Save Workspace
+                NavbarEvents.saveWorkspace();
+            }
+        });
+
+        $('#custom-gate-modal').on('hidden.bs.modal', function () {
+            // Reset custom Quantum gate model 
+            ToolboxEvents.resetCustomGateModel();
+        });
+
+        $("#custom-gates-section").on("click", ".quantum-gate", function () {
+            GlobalContext.startBlochSphereOperation(GlobalContext.customGatesProperties[$(this).attr("id")]);
+        });
+
+        $("#polar-angle").on("input change", function () {
+            let polarAngle = $("#polar-angle").val();
+
+            // Update content
+            $("#polar-angle-content").html(`${polarAngle}<span>&#176;</span>`);
+
+            // Save PolarAngle
+            GlobalContext.lambdaGatesProperties.polarAngle = polarAngle;
+
+            // Save Workspace
+            NavbarEvents.saveWorkspace();
+        });
+
+        $("#azimuth-angle").on("input change", function () {
+            let azimuthAngle = $("#azimuth-angle").val();
+
+            // Update content
+            $("#azimuth-angle-content").html(`${azimuthAngle}<span>&#176;</span>`);
+
+            // Save AzimuthAngle
+            GlobalContext.lambdaGatesProperties.azimuthAngle = azimuthAngle;
+
+            // Save Workspace
+            NavbarEvents.saveWorkspace();
+        });
+
+        $("#polar-lambdaGate").click(function () {
+            let polarAngle = $("#polar-angle").val();
+
+            // Apply Polar Lambda gate
+            GlobalContext.startBlochSphereOperation(new QuantumGate(0, 1, 0, polarAngle));
+        });
+
+        $("#azimuth-lambdaGate").click(function () {
+            let azimuthAngle = $("#azimuth-angle").val();
+
+            // Apply Azimuth Lambda gate
+            GlobalContext.startBlochSphereOperation(new QuantumGate(0, 0, 1, azimuthAngle));
+        });
     }
 };
 
@@ -69,29 +146,6 @@ var BlochSphereStateEvents = {
 };
 
 var NavbarEvents = {
-    updateWorkspace: function (decoded) {
-        let location = window.location;
-
-        // Decode Location with unsafe URL characters
-        if (decoded) {
-            location = decodeURIComponent(location);
-        }
-
-        // Update Workspace
-        $("#export-workspace-textarea").val(location);
-    },
-
-    copyWorkspaceToClipboard: function () {
-        $("#export-workspace-textarea").select();
-        document.execCommand("copy");
-    },
-
-    resetExportWorkspaceModel: function () {
-        $("#export-workspace-encode-url").prop('checked', false);
-    }
-};
-
-var WorkspaceEvents = {
     saveWorkspace: function () {
         let workspaceProperties = {
             "blochSphereStateProperties": GlobalContext.blochSphereStateProperties,
@@ -141,11 +195,47 @@ var WorkspaceEvents = {
 
         $("#azimuth-angle").val(workspaceProperties.lambdaGatesProperties.azimuthAngle);
         $("#azimuth-angle-content").html(`${workspaceProperties.lambdaGatesProperties.azimuthAngle}<span>&#176;</span>`);
+    },
+
+    updateWorkspace: function (decoded) {
+        let location = window.location;
+
+        // Decode Location with unsafe URL characters
+        if (decoded) {
+            location = decodeURIComponent(location);
+        }
+
+        // Update Workspace
+        $("#export-workspace-textarea").val(location);
+    },
+
+    resetExportWorkspaceModel: function () {
+        $("#export-workspace-encode-url").prop('checked', false);
+    },
+
+    eventListeners: function () {
+        $("#export-workspace").click(function () {
+            $("#export-workspace-textarea").select();
+            document.execCommand("copy");
+        });
+
+        $("#export-workspace-encode-url").change(function () {
+            if ($(this).is(':checked')) {
+                NavbarEvents.updateWorkspace(false);
+            }
+            else {
+                NavbarEvents.updateWorkspace(true);
+            }
+        });
+
+        $('#export-workspace-modal').on('hidden.bs.modal', function () {
+            // Reset export workspace model
+            NavbarEvents.resetExportWorkspaceModel();
+        });
     }
 };
 
 export {
     ToolboxEvents, BlochSphereStateEvents,
-    NavbarEvents,
-    WorkspaceEvents
+    NavbarEvents
 };
