@@ -141,7 +141,7 @@ var GlobalContext = {
 
         // Init OrbitControls
         GlobalContext.controls = new OrbitControls(GlobalContext.camera, GlobalContext.renderer.domElement);
-        GlobalContext.controls.minDistance = 1;
+        GlobalContext.controls.minDistance = diameter / 4;
         GlobalContext.controls.maxDistance = diameter * 2;
 
         // Initialize BlochSphere
