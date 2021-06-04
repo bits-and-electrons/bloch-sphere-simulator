@@ -304,42 +304,143 @@
 									</div>
 									<div class="modal-body">
 										<div class="container-fluid">
-											<form id="custom-gates-form" class="needs-validation" novalidate>
-												<div class="form-group row align-items-center">
-													<label for="custom-x" class="col-4 col-form-label">X:</label>
-													<input type="number" step="1" id="custom-gate-x"
-														class="col-8 form-control" placeholder="1" required />
-													<div class="invalid-feedback offset-4">
-														Please provide valid X coff.
+											<ul class="nav nav-tabs" id="custom-gate-tablist" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link active" id="using-rotations-tab"
+														data-toggle="tab" href="#using-rotations" role="tab">Using
+														Rotations</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="using-matrix-tab" data-toggle="tab"
+														href="#using-matrix" role="tab">Using Matrix</a>
+												</li>
+											</ul>
+
+											<div class="tab-content">
+												<div class="tab-pane active" id="using-rotations" role="tabpanel">
+													<div class="container-fluid pt-2">
+														<form id="using-rotations-custom-gates-form"
+															class="needs-validation" novalidate>
+															<div class="form-group row align-items-center">
+																<label for="using-rotations-custom-gate-x"
+																	class="col-4 col-form-label">X:</label>
+																<input type="number" step="1"
+																	id="using-rotations-custom-gate-x"
+																	class="col-8 form-control" placeholder="1"
+																	required />
+																<div class="invalid-feedback offset-4">
+																	Please provide valid X coff.
+																</div>
+															</div>
+															<div class="form-group row align-items-center">
+																<label for="using-rotations-custom-gate-y"
+																	class="col-4 col-form-label">Y:</label>
+																<input type="number" step="1"
+																	id="using-rotations-custom-gate-y"
+																	class="col-8 form-control" placeholder="0"
+																	required />
+																<div class="invalid-feedback offset-4">
+																	Please provide valid Y coff.
+																</div>
+															</div>
+															<div class="form-group row align-items-center">
+																<label for="using-rotations-custom-get-z"
+																	class="col-4 col-form-label">Z:</label>
+																<input type="number" step="1"
+																	id="using-rotations-custom-gate-z"
+																	class="col-8 form-control" placeholder="1"
+																	required />
+																<div class="invalid-feedback offset-4">
+																	Please provide valid Z coff.
+																</div>
+															</div>
+															<div class="form-group row align-items-center">
+																<label for="using-rotations-custom-gate-rotation"
+																	class="col-4 col-form-label">Rotation:</label>
+																<input type="number" min="-360" max="360" step="1"
+																	id="using-rotations-custom-gate-rotation"
+																	class="col-8 form-control" placeholder="180"
+																	required />
+																<div class="invalid-feedback offset-4">
+																	Please provide valid rotation.
+																</div>
+															</div>
+														</form>
 													</div>
 												</div>
-												<div class="form-group row align-items-center">
-													<label for="custom-y" class="col-4 col-form-label">Y:</label>
-													<input type="number" step="1" id="custom-gate-y"
-														class="col-8 form-control" placeholder="0" required />
-													<div class="invalid-feedback offset-4">
-														Please provide valid Y coff.
+
+												<div class="tab-pane" id="using-matrix" role="tabpanel">
+													<div class="container-fluid pt-2">
+														<form id="using-matrix-custom-gates-form"
+															class="needs-validation" novalidate>
+															<div class="form-group row align-items-center">
+																<label for="using-matrix-custom-gate-a11"
+																	class="col-4 col-form-label">A11:</label>
+																<input type="number" step="1"
+																	id="using-matrix-custom-gate-a11-real"
+																	class="col-3 form-control" placeholder="0"
+																	required />
+																<label class="col-2 col-form-label"> + i </label>
+																<input type="number" step="1"
+																	id="using-matrix-custom-gate-a11-img"
+																	class="col-3 form-control" placeholder="0"
+																	required />
+																<div class="invalid-feedback offset-4">
+																	Please provide valid A11.
+																</div>
+															</div>
+															<div class="form-group row align-items-center">
+																<label for="using-matrix-custom-gate-a12"
+																	class="col-4 col-form-label">A12:</label>
+																<input type="number" step="1"
+																	id="using-matrix-custom-gate-a12-real"
+																	class="col-3 form-control" placeholder="1"
+																	required />
+																<label class="col-2 col-form-label"> + i </label>
+																<input type="number" step="1"
+																	id="using-matrix-custom-gate-a12-img"
+																	class="col-3 form-control" placeholder="0"
+																	required />
+																<div class="invalid-feedback offset-4">
+																	Please provide valid A12.
+																</div>
+															</div>
+															<div class="form-group row align-items-center">
+																<label for="using-matrix-custom-gate-a21"
+																	class="col-4 col-form-label">A21:</label>
+																<input type="number" step="1"
+																	id="using-matrix-custom-gate-a21-real"
+																	class="col-3 form-control" placeholder="1"
+																	required />
+																<label class="col-2 col-form-label"> + i </label>
+																<input type="number" step="1"
+																	id="using-matrix-custom-gate-a21-img"
+																	class="col-3 form-control" placeholder="0"
+																	required />
+																<div class="invalid-feedback offset-4">
+																	Please provide valid A21.
+																</div>
+															</div>
+															<div class="form-group row align-items-center">
+																<label for="using-matrix-custom-gate-a22"
+																	class="col-4 col-form-label">A22:</label>
+																<input type="number" step="1"
+																	id="using-matrix-custom-gate-a22-real"
+																	class="col-3 form-control" placeholder="0"
+																	required />
+																<label class="col-2 col-form-label"> + i </label>
+																<input type="number" step="1"
+																	id="using-matrix-custom-gate-a22-img"
+																	class="col-3 form-control" placeholder="0"
+																	required />
+																<div class="invalid-feedback offset-4">
+																	Please provide valid A22.
+																</div>
+															</div>
+														</form>
 													</div>
 												</div>
-												<div class="form-group row align-items-center">
-													<label for="custom-z" class="col-4 col-form-label">Z:</label>
-													<input type="number" step="1" id="custom-gate-z"
-														class="col-8 form-control" placeholder="1" required />
-													<div class="invalid-feedback offset-4">
-														Please provide valid Z coff.
-													</div>
-												</div>
-												<div class="form-group row align-items-center">
-													<label for="custom-rotation"
-														class="col-4 col-form-label">Rotation:</label>
-													<input type="number" min="-360" max="360" step="1"
-														id="custom-gate-rotation" class="col-8 form-control"
-														placeholder="180" required />
-													<div class="invalid-feedback offset-4">
-														Please provide valid rotation.
-													</div>
-												</div>
-											</form>
+											</div>
 										</div>
 									</div>
 									<div class="modal-footer">
