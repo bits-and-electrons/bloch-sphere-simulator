@@ -6,6 +6,10 @@ import {
     GlobalContext
 } from "./context.js";
 
+import {
+    Complex
+} from "./mathutils.js";
+
 
 var NavbarEvents = {
     saveWorkspace: function () {
@@ -45,7 +49,7 @@ var NavbarEvents = {
         // Load Custom gates properties
         if (workspaceProperties.customGatesProperties != null) {
             for (const [_, customGate] of Object.entries(workspaceProperties.customGatesProperties)) {
-                ToolboxEvents.createCustomGate(customGate.axis.x, customGate.axis.y, customGate.axis.z, customGate.rotation);
+                ToolboxEvents.createCustomQuantumGate(QuantumGate.createQuantumGateUsingJsonString(customGate));
             }
         }
 
@@ -106,35 +110,50 @@ var ToolboxEvents = {
         $("button[id$='Gate']").attr("disabled", true);
     },
 
-    createCustomGate: function (x, y, z, rotation) {
-        x = parseInt(x);
-        y = parseInt(y);
-        z = parseInt(z);
-        rotation = parseInt(rotation);
-
+    createCustomQuantumGate(customQuantumGate) {
         let count = Object.keys(GlobalContext.customGatesProperties).length + 1;
         let id = "c" + count + "-customGate";
 
-        let customGate = new QuantumGate(x, y, z, rotation);
-        GlobalContext.customGatesProperties[id] = customGate;
+        GlobalContext.customGatesProperties[id] = customQuantumGate;
 
-        let customGateHtml = `
+        let customQuantumGateHtml = `
             <button type="button" id="${id}" class="quantum-gate col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
-                data-toggle="tooltip" data-html="true" title="Axis: ${x} * X + ${y} * Y + ${z} * Z, Rotation: ${rotation}">
+                data-toggle="tooltip" data-html="true" title="${customQuantumGate.properties.title}">
                 <span>C<sub>${count}</sub></span>
             </button>
         `;
 
-        $(customGateHtml).insertBefore("#custom-gate-add");
+        $(customQuantumGateHtml).insertBefore("#custom-gate-add");
+    },
+
+    createCustomQuantumGateUsingRotations: function (x, y, z, rotation) {
+        let customQuantumGate = QuantumGate.createQuantumGateUsingRotations(x, y, z, rotation);
+        ToolboxEvents.createCustomQuantumGate(customQuantumGate);
+    },
+
+    createCustomQuantumGateUsingMatrix: function (a11, a12, a21, a22) {
+        let customQuantumGate = QuantumGate.createQuantumGateUsingMatrix(a11, a12, a21, a22);
+        ToolboxEvents.createCustomQuantumGate(customQuantumGate);
     },
 
     resetCustomGateModel: function () {
-        $("#custom-gate-x").val("");
-        $("#custom-gate-y").val("");
-        $("#custom-gate-z").val("");
-        $("#custom-gate-rotation").val("");
+        // reset custom gate using rotations
+        $("#using-rotations-custom-gate-x").val("");
+        $("#using-rotations-custom-gate-y").val("");
+        $("#using-rotations-custom-gate-z").val("");
+        $("#using-rotations-custom-gate-rotation").val("");
+        $("#using-rotations-custom-gates-form").removeClass("was-validated");
 
-        $("#custom-gates-form").removeClass("was-validated");
+        // reset custom gate using matrix
+        $("#using-matrix-custom-gate-a11-real").val("");
+        $("#using-matrix-custom-gate-a11-img").val("");
+        $("#using-matrix-custom-gate-a12-real").val("");
+        $("#using-matrix-custom-gate-a12-img").val("");
+        $("#using-matrix-custom-gate-a21-real").val("");
+        $("#using-matrix-custom-gate-a21-img").val("");
+        $("#using-matrix-custom-gate-a22-real").val("");
+        $("#using-matrix-custom-gate-a22-img").val("");
+        $("#using-matrix-custom-gates-form").removeClass("was-validated");
     },
 
     eventListeners: function () {
@@ -143,24 +162,47 @@ var ToolboxEvents = {
         });
 
         $("#custom-gate-create").click(function () {
-            if (!($("#custom-gates-form")[0].checkValidity())) {
-                $("#custom-gates-form").addClass("was-validated");
+            if ($("#using-rotations-tab").hasClass("active")) {
+                if (!($("#using-rotations-custom-gates-form")[0].checkValidity())) {
+                    $("#using-rotations-custom-gates-form").addClass("was-validated");
+                }
+                else {
+                    // get custom gate properties
+                    let x = $("#using-rotations-custom-gate-x").val();
+                    let y = $("#using-rotations-custom-gate-y").val();
+                    let z = $("#using-rotations-custom-gate-z").val();
+                    let rotation = $("#using-rotations-custom-gate-rotation").val();
+
+                    // create custom gate
+                    ToolboxEvents.createCustomQuantumGateUsingRotations(x, y, z, rotation);
+
+                    // reset custom quantum gate model 
+                    ToolboxEvents.resetCustomGateModel();
+
+                    // save workspace
+                    NavbarEvents.saveWorkspace();
+                }
             }
             else {
-                // Get Custom gate properties
-                let x = $("#custom-gate-x").val();
-                let y = $("#custom-gate-y").val();
-                let z = $("#custom-gate-z").val();
-                let rotation = $("#custom-gate-rotation").val();
+                if (!($("#using-matrix-custom-gates-form")[0].checkValidity())) {
+                    $("#using-matrix-custom-gates-form").addClass("was-validated");
+                }
+                else {
+                    // get custom gate properties
+                    let a11 = new Complex($("#using-matrix-custom-gate-a11-real").val(), $("#using-matrix-custom-gate-a11-img").val());
+                    let a12 = new Complex($("#using-matrix-custom-gate-a12-real").val(), $("#using-matrix-custom-gate-a12-img").val());
+                    let a21 = new Complex($("#using-matrix-custom-gate-a21-real").val(), $("#using-matrix-custom-gate-a21-img").val());
+                    let a22 = new Complex($("#using-matrix-custom-gate-a22-real").val(), $("#using-matrix-custom-gate-a22-img").val());
 
-                // Create Custom gate
-                ToolboxEvents.createCustomGate(x, y, z, rotation);
+                    // create custom gate
+                    ToolboxEvents.createCustomQuantumGateUsingMatrix(a11, a12, a21, a22);
 
-                // Reset custom Quantum gate model 
-                ToolboxEvents.resetCustomGateModel();
+                    // reset custom quantum gate model 
+                    ToolboxEvents.resetCustomGateModel();
 
-                // Save Workspace
-                NavbarEvents.saveWorkspace();
+                    // save workspace
+                    NavbarEvents.saveWorkspace();
+                }
             }
         });
 
