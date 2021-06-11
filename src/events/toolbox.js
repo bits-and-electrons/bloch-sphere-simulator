@@ -3,6 +3,10 @@ import {
 } from "./../context.js";
 
 import {
+    Complex
+} from "./../mathutils.js";
+
+import {
     QuantumGate
 } from "./../quantum/quantum_gate.js";
 
