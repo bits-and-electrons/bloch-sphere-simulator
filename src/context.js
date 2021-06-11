@@ -13,16 +13,23 @@ import {
 } from "./quantum/quantum_gate.js";
 
 import {
-    NavbarEvents,
-    ToolboxEvents, BlochSphereStateEvents
-} from "./events.js";
+    BlochSphereEventsNamespace
+} from "./events/blochsphere.js";
+
+import {
+    ToolboxEventsNamespace
+} from "./events/toolbox.js";
+
+import {
+    NavbarEventsNamespace
+} from "./events/navbar.js";
 
 
 var GlobalContext = {
     canvas: null,
 
     scene: null, camera: null, light: null,
-    renderer: null, labelRenderer: null, controls: null,
+    renderer: null, controls: null,
 
     blochSphere: null,
 
@@ -104,47 +111,47 @@ var GlobalContext = {
     },
 
     init: function () {
-        // Load Workspace
-        NavbarEvents.loadWorkspace();
+        // load workspace
+        NavbarEventsNamespace.loadWorkspace();
 
-        // Get Canves
+        // get canves
         let canvas = document.getElementById("bloch-sphere");
         let canvasWidth = canvas.offsetWidth;
         let canvasHeight = canvas.offsetHeight;
 
-        // Set diameter to 80% of Canvas size
+        // set diameter to 80% of canvas size
         let diameter = (Math.min(canvasWidth, canvasHeight) / 100) * 80;
 
-        // Init Scene
+        // init scene
         GlobalContext.scene = new THREE.Scene();
 
-        // Init Camera
+        // init camera
         GlobalContext.camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight, 0.1, diameter * 2);
 
-        // Set Camera Position
+        // set camera position
         GlobalContext.camera.position.set(diameter, diameter, diameter);
         GlobalContext.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-        // Add Camera to Scene
+        // add camera to scene
         GlobalContext.scene.add(GlobalContext.camera);
 
-        // Init Light and add to Scene
+        // init light and add to scene
         GlobalContext.light = new THREE.DirectionalLight(0xFFFFFF);
         GlobalContext.camera.add(GlobalContext.light);
 
-        // Init Renderer
+        // init renderer
         GlobalContext.renderer = new THREE.WebGLRenderer();
         GlobalContext.renderer.setSize(canvasWidth, canvasHeight);
 
-        // Append Render and LabelRenderer to Canvas
+        // append render and label renderer to canvas
         canvas.appendChild(GlobalContext.renderer.domElement);
 
-        // Init OrbitControls
+        // init orbit controls
         GlobalContext.controls = new OrbitControls(GlobalContext.camera, GlobalContext.renderer.domElement);
         GlobalContext.controls.minDistance = diameter / 4;
         GlobalContext.controls.maxDistance = diameter * 2;
 
-        // Initialize BlochSphere
+        // initialize blochsphere
         GlobalContext.blochSphere = new BlochSphere(diameter / 2, {
             theta: GlobalContext.blochSphereStateProperties.theta,
             phi: GlobalContext.blochSphereStateProperties.phi,
@@ -153,17 +160,17 @@ var GlobalContext = {
             axesWidth: 2
         });
 
-        // Add BlochSphere to Scene
+        // add blochsphere to scene
         GlobalContext.scene.add(GlobalContext.blochSphere);
 
-        // Start all events listeners
+        // start all events listeners
         GlobalContext.startAllEventListeners();
 
-        // Update BlochSphereState
-        BlochSphereStateEvents.updateBlochSphereState();
+        // update blochsphere state
+        BlochSphereEventsNamespace.updateBlochSphereState();
 
-        // Save Workspace
-        NavbarEvents.saveWorkspace();
+        // save workspace
+        NavbarEventsNamespace.saveWorkspace();
     },
 
     onload: function () {
@@ -172,69 +179,31 @@ var GlobalContext = {
     },
 
     onresize: function () {
-        // Get Canves
+        // get canves
         let canvas = document.getElementById("bloch-sphere");
         let canvasWidth = canvas.offsetWidth;
         let canvasHeight = canvas.offsetHeight;
 
-        // Update Camera
+        // update camera
         GlobalContext.camera.aspect = canvasWidth / canvasHeight;
         GlobalContext.camera.updateProjectionMatrix();
 
-        // Update Renderer 
+        // update renderer 
         GlobalContext.renderer.setSize(canvasWidth, canvasHeight);
     },
 
     startAllEventListeners: function () {
-        NavbarEvents.eventListeners();
-        ToolboxEvents.eventListeners();
-    },
-
-    startBlochSphereOperation: function (gate) {
-        ToolboxEvents.disableQuantumGates();
-
-        GlobalContext.blochSphereOperation.inProgress = true;
-
-        GlobalContext.blochSphereOperation.rotationAxis = gate.rotationAxis;
-        GlobalContext.blochSphereOperation.rotation = gate.rotation
+        NavbarEventsNamespace.startNavbarEventListeners();
+        ToolboxEventsNamespace.startToolboxEventListeners();
     },
 
     animate: function () {
         requestAnimationFrame(GlobalContext.animate);
 
-        if (GlobalContext.blochSphereOperation.inProgress) {
-            if (GlobalContext.blochSphereOperation.rotation == 0) {
-                GlobalContext.blochSphereOperation.inProgress = false;
-                ToolboxEvents.enableQuantumGates();
+        // 
+        BlochSphereEventsNamespace.blochSphereOperation();
 
-                // Get BlochSphereState
-                let blochSphereState = GlobalContext.blochSphere.blochSphereState;
-
-                // Save Theta & Phi
-                GlobalContext.blochSphereStateProperties.theta = blochSphereState.theta;
-                GlobalContext.blochSphereStateProperties.phi = blochSphereState.phi;
-
-                // Save Workspace
-                NavbarEvents.saveWorkspace();
-            }
-            else {
-                if (GlobalContext.blochSphereOperation.rotation > 0) {
-                    // Apply Delta Quantum Operation
-                    GlobalContext.blochSphereOperation.rotation -= 1;
-                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.rotationAxis, THREE.Math.degToRad(1));
-                }
-                else {
-                    // Apply Delta Quantum Operation
-                    GlobalContext.blochSphereOperation.rotation += 1;
-                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.rotationAxis, THREE.Math.degToRad(-1));
-                }
-
-                // Update BlochSphereState
-                BlochSphereStateEvents.updateBlochSphereState();
-            }
-        }
-
-        // Rendering
+        // rendering
         GlobalContext.renderer.render(GlobalContext.scene, GlobalContext.camera);
     }
 }
