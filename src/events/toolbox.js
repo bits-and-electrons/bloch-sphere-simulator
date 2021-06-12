@@ -4,7 +4,7 @@ import {
 
 import {
     Complex
-} from "./../mathutils.js";
+} from "./../math/complex.js";
 
 import {
     QuantumGate

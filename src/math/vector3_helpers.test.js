@@ -1,18 +1,11 @@
 import {
-    Complex,
     Vector3Helpers
-} from "./mathutils.js";
+} from "./vector3_helpers.js";
 
-import { 
+import {
     CartesianAxes
- } from "./geometry/composite_shapes.js";
+} from "./../geometry/composite_shapes.js";
 
-
-test("complex-basic", () => {
-    expect(
-        new Complex(2, 3).toString()
-    ).toBe("+2.0000 + i * 3.0000");
-});
 
 test("vector3-helpers-angle-between-vectors-basic", () => {
     expect(

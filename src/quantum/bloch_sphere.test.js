@@ -2,7 +2,7 @@ import * as THREE from "../libs/three/three.module.js";
 
 import {
     Float
-} from "../mathutils.js";
+} from "../math/float.js";
 
 import {
     BlochSphere
