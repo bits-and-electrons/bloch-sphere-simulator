@@ -10,7 +10,7 @@ import {
 
 import {
     Vector3Helpers
-} from "../mathutils.js";
+} from "../math/vector3_helpers.js";
 
 
 class Axis extends BaseGroup {

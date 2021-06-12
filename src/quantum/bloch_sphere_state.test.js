@@ -1,6 +1,6 @@
 import {
     Complex
-} from "../mathutils.js";
+} from "../math/complex.js";
 
 import {
     BlochSphereState
