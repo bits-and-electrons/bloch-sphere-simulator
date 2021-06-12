@@ -20,6 +20,7 @@
     "url": "https://github.com/bits-and-electrons/bloch-sphere-simulator/issues"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-transform-modules-commonjs": "^7.12.13",
     "jest": "^26.6.3",
     "jest-canvas-mock": "^2.3.1"
