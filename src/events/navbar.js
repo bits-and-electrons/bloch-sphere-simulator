@@ -23,18 +23,18 @@ var NavbarEventsNamespace = {
         window.location.hash = JSON.stringify(workspaceProperties);
     
         // update workspace
-        NavbarEventsNamespace.updateWorkspace(true);
+        NavbarEventsNamespace.updateWorkspace(false);
     },
     
     loadWorkspace: function() {
-        // decode Hash with unsafe URL characters
-        let hash = decodeURIComponent(window.location.hash);
+        // decode hash with unsafe url characters
+        let hash = decodeURI(window.location.hash);
     
         if (hash.length == 0) {
             return;
         }
     
-        // remove '#' from hash & Parse workspace properties
+        // remove '#' from hash & parse workspace properties
         let workspacePropertiesJson = hash.substring(1);
         let workspaceProperties = JSON.parse(workspacePropertiesJson);
     
@@ -62,16 +62,16 @@ var NavbarEventsNamespace = {
         $("#azimuth-angle-content").html(`${workspaceProperties.lambdaGatesProperties.azimuthAngle}<span>&#176;</span>`);
     },
     
-    updateWorkspace: function(decoded) {
-        let location = window.location;
+    updateWorkspace: function(encoded) {
+        let href = window.location.href;
     
-        // decode location with unsafe url characters
-        if (decoded) {
-            location = decodeURIComponent(location);
+        // decode href with unsafe url characters
+        if (!encoded) {
+            href = decodeURI(href);
         }
     
         // update workspace
-        $("#export-workspace-textarea").val(location);
+        $("#export-workspace-textarea").val(href);
     },
 
     exportWorkspaceButtonOnClickEvent: function() {
@@ -80,16 +80,20 @@ var NavbarEventsNamespace = {
     },
     
     exportWorkspaceEncodeURLCheckboxOnChangeEvent: function() {
-        if ($(this).is(':checked')) {
-            NavbarEventsNamespace.updateWorkspace(false);
+        if ($("#export-workspace-encode-url").is(':checked')) {
+            NavbarEventsNamespace.updateWorkspace(true);
         }
         else {
-            NavbarEventsNamespace.updateWorkspace(true);
+            NavbarEventsNamespace.updateWorkspace(false);
         }
     },
     
     resetExportWorkspaceModel: function() {
+        // reset encode url checkbox
         $("#export-workspace-encode-url").prop('checked', false);
+
+        // reset export workspace textarea
+        NavbarEventsNamespace.updateWorkspace(false);
     },
     
     startNavbarEventListeners: function() {
