@@ -33,6 +33,7 @@ var BlochSphereEventsNamespace = {
     blochSphereOperation: function() {
         if (GlobalContext.blochSphereOperation.inProgress) {
             if (GlobalContext.blochSphereOperation.rotation == 0) {
+                // set inProgress flag to false
                 GlobalContext.blochSphereOperation.inProgress = false;
     
                 // get blochSphere state
@@ -67,10 +68,13 @@ var BlochSphereEventsNamespace = {
     },
     
     startBlochSphereOperation: function(gate) {
+        // disable quantum gates
         ToolboxEventsNamespace.disableQuantumGates();
     
+        // set inProgress flag to true
         GlobalContext.blochSphereOperation.inProgress = true;
     
+        // set rotationAxis and rotation
         GlobalContext.blochSphereOperation.rotationAxis = gate.rotationAxis;
         GlobalContext.blochSphereOperation.rotation = gate.rotation
     }

@@ -12,7 +12,7 @@ import {
 
 import {
     BlochSphereEventsNamespace
-} from "./blochsphere.js";
+} from "./bloch_sphere.js";
 
 import {
     NavbarEventsNamespace

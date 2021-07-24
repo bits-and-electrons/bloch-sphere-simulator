@@ -14,7 +14,7 @@ import {
 
 import {
     BlochSphereEventsNamespace
-} from "./events/blochsphere.js";
+} from "./events/bloch_sphere.js";
 
 import {
     ToolboxEventsNamespace
