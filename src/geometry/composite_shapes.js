@@ -5,7 +5,7 @@ import {
 } from "./bases.js";
 
 import {
-    Cylinder, Sphere
+    Label, Cylinder, Sphere
 } from "./basic_shapes.js";
 
 import {
@@ -52,16 +52,35 @@ class CartesianAxes extends BaseGroup {
             rotation: new THREE.Vector3(THREE.Math.degToRad(90), 0, 0)
         });
 
+        this.xAxisLabel = new Label("X", {
+            color: properties.xAxisColor,
+            position: new THREE.Vector3(0, length / 2, 0),
+        });
+
         this.yAxis = new Axis(length, width, {
             color: properties.yAxisColor,
             position: new THREE.Vector3(length / 2, 0, 0),
             rotation: new THREE.Vector3(0, 0, -1 * THREE.Math.degToRad(90))
         });
 
+        this.yAxisLabel = new Label("Y", {
+            color: properties.yAxisColor,
+            position: new THREE.Vector3(0, length / 2, 0),
+        });
+
         this.zAxis = new Axis(length, width, {
             color: properties.zAxisColor,
             position: new THREE.Vector3(0, length / 2, 0)
         });
+
+        this.zAxisLabel = new Label("Z", {
+            color: properties.zAxisColor,
+            position: new THREE.Vector3(0, length / 2, 0)
+        });
+
+        this.xAxisLabel.setParent(this.xAxis);
+        this.yAxisLabel.setParent(this.yAxis);
+        this.zAxisLabel.setParent(this.zAxis);
 
         this.add(this.xAxis);
         this.add(this.yAxis);
@@ -101,17 +120,17 @@ class StatePointer extends BaseGroup {
 
         super(properties);
 
-        let head = new Sphere(properties.pointerRadius, {
+        this.head = new Sphere(properties.pointerRadius, {
             color: properties.color,
             position: new THREE.Vector3(0, height / 2, 0)
         });
 
-        let shaft = new Cylinder(height, width, width, {
+        this.shaft = new Cylinder(height, width, width, {
             color: properties.color
         });
 
-        this.add(head);
-        this.add(shaft);
+        this.add(this.head);
+        this.add(this.shaft);
     }
 
     rotate(axis, point, angle) {

@@ -1,9 +1,36 @@
 import * as THREE from '../libs/three/three.module.js';
 
 import {
+    CSS2DObject
+} from "../libs/three/jsm/renderers/CSS2DRenderer.js";
+
+import {
     BaseMesh
 } from "./bases.js";
 
+
+class Label {
+    constructor(text, properties) {
+        if (!properties) properties = {};
+
+        if (!properties.color) properties.color = new THREE.Color(0x000000);
+        if (!properties.position) properties.position = new THREE.Vector3(0, 0, 0);
+
+        this.element = document.createElement("div");
+		this.element.textContent = text;
+        this.element.className = 'label';
+
+        this.element.style.color = properties.color.getStyle();
+		this.element.style.marginTop = '-1em';
+				
+        this.label = new CSS2DObject(this.element);
+		this.label.position.set(properties.position.x, properties.position.y, properties.position.z);
+    }
+
+    setParent(parent) {
+        parent.add(this.label);
+    }
+}
 
 class Cylinder extends BaseMesh {
     constructor(height, radiusTop, radiusBottom, properties) {
@@ -94,5 +121,5 @@ class Sphere extends BaseMesh {
 }
 
 export {
-    Cylinder, Sphere
+    Label, Cylinder, Sphere
 };
