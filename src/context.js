@@ -142,6 +142,7 @@ var GlobalContext = {
         // init renderer
         GlobalContext.renderer = new THREE.WebGLRenderer();
         GlobalContext.renderer.setSize(canvasWidth, canvasHeight);
+        GlobalContext.renderer.setPixelRatio(window.devicePixelRatio);
 
         // append render and label renderer to canvas
         canvas.appendChild(GlobalContext.renderer.domElement);
