@@ -34,6 +34,12 @@ body {
     color: #dc3545;
 }
 
+.label {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    padding: 2px;
+}
+
 #bloch-sphere {
     height: calc(90% - 56px);
 }

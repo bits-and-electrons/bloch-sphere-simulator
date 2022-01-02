@@ -1,6 +1,10 @@
 import * as THREE from './libs/three/three.module.js';
 
 import {
+    CSS2DRenderer
+} from "./libs/three/jsm/renderers/CSS2DRenderer.js";
+
+import {
     OrbitControls
 } from "./libs/three/jsm/controls/OrbitControls.js";
 
@@ -29,7 +33,7 @@ var GlobalContext = {
     canvas: null,
 
     scene: null, camera: null, light: null,
-    renderer: null, controls: null,
+    renderer: null, labelRenderer: null, controls: null,
 
     blochSphere: null,
 
@@ -144,11 +148,18 @@ var GlobalContext = {
         GlobalContext.renderer.setSize(canvasWidth, canvasHeight);
         GlobalContext.renderer.setPixelRatio(window.devicePixelRatio);
 
+        // init label renderer
+        GlobalContext.labelRenderer = new CSS2DRenderer();
+        GlobalContext.labelRenderer.setSize(canvasWidth, canvasHeight);
+        GlobalContext.labelRenderer.domElement.style.position = 'absolute';
+		GlobalContext.labelRenderer.domElement.style.top = 0;
+
         // append render and label renderer to canvas
         canvas.appendChild(GlobalContext.renderer.domElement);
+        canvas.appendChild(GlobalContext.labelRenderer.domElement);
 
         // init orbit controls
-        GlobalContext.controls = new OrbitControls(GlobalContext.camera, GlobalContext.renderer.domElement);
+        GlobalContext.controls = new OrbitControls(GlobalContext.camera, GlobalContext.labelRenderer.domElement);
         GlobalContext.controls.minDistance = diameter / 4;
         GlobalContext.controls.maxDistance = diameter * 2;
 
@@ -189,8 +200,9 @@ var GlobalContext = {
         GlobalContext.camera.aspect = canvasWidth / canvasHeight;
         GlobalContext.camera.updateProjectionMatrix();
 
-        // update renderer 
+        // update renderer and label renderer
         GlobalContext.renderer.setSize(canvasWidth, canvasHeight);
+        GlobalContext.labelRenderer.setSize(canvasWidth, canvasHeight);
     },
 
     startAllEventListeners: function () {
@@ -201,11 +213,12 @@ var GlobalContext = {
     animate: function () {
         requestAnimationFrame(GlobalContext.animate);
 
-        // 
+        // animate blochsphere operation
         BlochSphereEventsNamespace.blochSphereOperation();
 
         // rendering
         GlobalContext.renderer.render(GlobalContext.scene, GlobalContext.camera);
+        GlobalContext.labelRenderer.render(GlobalContext.scene, GlobalContext.camera);
     }
 }
 
