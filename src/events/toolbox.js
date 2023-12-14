@@ -3,6 +3,10 @@ import {
 } from "./../context.js";
 
 import {
+    Float
+} from "./../math/float.js";
+
+import {
     Complex
 } from "./../math/complex.js";
 
@@ -17,7 +21,6 @@ import {
 import {
     NavbarEventsNamespace
 } from "./navbar.js";
-
 
 var ToolboxEventsNamespace = {
     enableQuantumGates: function() {
@@ -76,6 +79,52 @@ var ToolboxEventsNamespace = {
     
     builtInGateButtonOnClickEvent: function(buildInGateButtonId) {
         BlochSphereEventsNamespace.startBlochSphereOperation(GlobalContext.builtInGatesProperties[buildInGateButtonId]);
+    },
+
+    /*
+    * Allows moving to a location on the Bloch sphere using polar and azimuth angles.
+    * It does so by computing the displacement angles by diffing the initial and target angles.
+    */
+    jumpToButtonOnClickEvent: function(theta_t, phi_t) {
+
+        // Get current vector properties from blochSphereState
+        let blochSphereState = GlobalContext.blochSphere.blochSphereState;
+        let theta_i = blochSphereState.theta;
+        let phi_i = blochSphereState.phi;
+        let theta_d = Math.round((theta_t - theta_i));
+        let phi_d = Math.round((phi_t - phi_i));
+
+        console.log(`initial: ${theta_i}, ${phi_i}`);
+        console.log(`target: ${theta_t}, ${phi_t}`);
+
+        // Because we have to make two rotations (polar and azimuth), we need to perform them
+        // one after another. We use async/await to achieve this.
+        (async function() {
+
+            let waitForRender = function() {
+                return new Promise(resolve => {
+                    function isRotationComplete() {
+                        // Check if rotation is complete using the `inProgress` flag
+                        if (GlobalContext.blochSphereOperation.inProgress == false) {
+                            // Rotation is complete. Resolve the promise.
+                            resolve();
+                        } else {
+                            // Rotation is not yet complete. Keep checking until the condition is met.
+                            requestAnimationFrame(isRotationComplete);
+                        }
+                    }
+                    // Start monitoring
+                    isRotationComplete();
+                });
+            };
+
+            // Rotate over y
+            BlochSphereEventsNamespace.startBlochSphereOperation(new QuantumGate(0, 1, 0, theta_d));
+            // Wait for rotation to render
+            await waitForRender();
+            // Now rotate over z
+            BlochSphereEventsNamespace.startBlochSphereOperation(new QuantumGate(0, 0, 1, phi_d));
+        })();
     },
     
     customGateCreateButtonOnClickEvent: function() {
@@ -198,6 +247,12 @@ var ToolboxEventsNamespace = {
     
         $('#custom-gate-modal').on('hidden.bs.modal', function () {
             ToolboxEventsNamespace.resetCustomQuantumGateModels();
+        });
+
+        $("button[id^='jump-to-']").click(function () {
+            let theta = $(this).data("theta");
+            let phi = $(this).data("phi");
+            ToolboxEventsNamespace.jumpToButtonOnClickEvent(theta, phi);
         });
     }
 }
