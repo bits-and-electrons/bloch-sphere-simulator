@@ -10,7 +10,6 @@ import {
     NavbarEventsNamespace 
 } from "./navbar.js";
 
-
 var BlochSphereEventsNamespace = {
     updateBlochSphereState: function() {
         // get blochsphere state
@@ -43,21 +42,32 @@ var BlochSphereEventsNamespace = {
                 GlobalContext.blochSphereStateProperties.theta = blochSphereState.theta;
                 GlobalContext.blochSphereStateProperties.phi = blochSphereState.phi;
 
-                // diable quantum gates
+                // enable quantum gates
                 ToolboxEventsNamespace.enableQuantumGates();
     
                 // save workspace
                 NavbarEventsNamespace.saveWorkspace();
-            }
-            else {
+            } else if (GlobalContext.blochSphereOperation.rotation <= 1 && GlobalContext.blochSphereOperation.rotation >= -1) {
+                // Take smaller steps
                 if (GlobalContext.blochSphereOperation.rotation > 0) {
                     // apply delta quantum operation
-                    GlobalContext.blochSphereOperation.rotation -= 1;
+                    GlobalContext.blochSphereOperation.rotation = new Decimal(GlobalContext.blochSphereOperation.rotation).minus(0.01).toDecimalPlaces(4).toNumber();
+                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.rotationAxis, THREE.Math.degToRad(0.01));
+                }
+                else {
+                    // apply delta quantum operation
+                    GlobalContext.blochSphereOperation.rotation = new Decimal(GlobalContext.blochSphereOperation.rotation).plus(0.01).toDecimalPlaces(4).toNumber();
+                    GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.rotationAxis, THREE.Math.degToRad(-0.01));
+                }
+            } else {
+                if (GlobalContext.blochSphereOperation.rotation > 0) {
+                    // apply delta quantum operation
+                    GlobalContext.blochSphereOperation.rotation = new Decimal(GlobalContext.blochSphereOperation.rotation).minus(1).toDecimalPlaces(4).toNumber();
                     GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.rotationAxis, THREE.Math.degToRad(1));
                 }
                 else {
                     // apply delta quantum operation
-                    GlobalContext.blochSphereOperation.rotation += 1;
+                    GlobalContext.blochSphereOperation.rotation = new Decimal(GlobalContext.blochSphereOperation.rotation).plus(1).toDecimalPlaces(4).toNumber();
                     GlobalContext.blochSphere.updateBlochSphereState(GlobalContext.blochSphereOperation.rotationAxis, THREE.Math.degToRad(-1));
                 }
     
@@ -68,6 +78,7 @@ var BlochSphereEventsNamespace = {
     },
     
     startBlochSphereOperation: function(gate) {
+        console.log(`startBlochSphereOperation(${JSON.stringify(gate)})`);
         // disable quantum gates
         ToolboxEventsNamespace.disableQuantumGates();
     
@@ -79,7 +90,6 @@ var BlochSphereEventsNamespace = {
         GlobalContext.blochSphereOperation.rotation = gate.rotation
     }
 }
-
 
 export {
     BlochSphereEventsNamespace

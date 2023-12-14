@@ -491,6 +491,27 @@
 							</div>
 						</form>
 					</div>
+					<div class="col-12">
+						<div class="d-flex justify-content-left">
+							<h5>
+								<b>Jump To</b>
+							</h5>
+						</div>
+					</div>
+					<div id="jump-to-section" class="col-12">
+						<button type="button" id="jump-to-1"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
+							data-theta="0" data-phi="0"
+							>
+							<span>|0&gt;</span>
+						</button>
+						<button type="button" id="jump-to-0"
+							class="col-xl-3 col-lg-12 btn btn-primary btn-custom mr-1 mt-1"
+							data-theta="180" data-phi="0"
+							>
+							<span>|1&gt;</span>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -504,6 +525,9 @@
 
 	<!-- Three.JS -->
 	<script type="module" src="src/libs/three/three.min.js"></script>
+
+	<!-- Decimal.js -->
+	<script type="module" src="src/libs/decimal.js-light/decimal.min.js"></script>
 
 	<!-- Start BlochSphere Rendering -->
 	<script type="module" src="src/init.js"></script>
