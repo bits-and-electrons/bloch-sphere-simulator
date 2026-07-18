@@ -25,7 +25,14 @@ git clone https://github.com/bits-and-electrons/bloch-sphere-simulator
 npm install
 ```
 
-### Test your changes locally
+### Start locally and open in browser
+```
+npm start
+```
+
+Then open http://localhost:8080 in your browser to test your changes locally.
+
+### Run unit tests
 ```
 npm test
 ```
