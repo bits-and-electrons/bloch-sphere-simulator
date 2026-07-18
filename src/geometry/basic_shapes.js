@@ -93,8 +93,8 @@ class Sphere extends BaseMesh {
         let sphereMaterial = new THREE.MeshPhongMaterial({
             color: properties.color,
             opacity: properties.opacity,
-            shininess: 80,
-            specular: new THREE.Color(0x1a4a8a),
+            shininess: 0,
+            specular: new THREE.Color(0x000000),
             emissive: properties.emissive || new THREE.Color(0x000000)
         });
 
